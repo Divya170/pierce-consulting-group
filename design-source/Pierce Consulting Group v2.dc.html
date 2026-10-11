@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Pierce Consulting Group — Business Consulting</title>
+<meta name="description" content="Pierce Consulting Group works with businesses to evaluate challenges, improve operations, and plan practical next steps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400;1,9..40,500&amp;family=Inter:wght@400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#F7F5EF;color:#29343A;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+*{box-sizing:border-box}
+a{color:#17242B;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#243943}
+*:focus-visible{outline:2px solid #A88D5D;outline-offset:3px}
+input,select,textarea,button{font-family:inherit}
+@keyframes pcg-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<a href="#main" onClick="{{ skipToMain }}" style="position:fixed;left:16px;top:-80px;z-index:200;background:#17242B;color:#FFFFFF;padding:12px 18px;font-size:14px;text-decoration:none;border-radius:2px" style-focus="top:16px">Skip to content</a>
+
+<header style="position:sticky;top:0;z-index:60;background:#17242B;color:#F7F5EF;border-bottom:1px solid rgba(247,245,239,0.12)">
+  <div style="max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:{{ headerPadY }};padding-bottom:{{ headerPadY }};display:flex;align-items:center;justify-content:space-between;gap:24px;transition:padding 220ms ease">
+    <a href="#/" aria-label="Pierce Consulting Group — home" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#F7F5EF;min-height:44px">
+      <span aria-hidden="true" style="width:34px;height:34px;border:1px solid #C9B07F;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-weight:500;font-size:17px;color:#C9B07F">P</span>
+      <span style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'DM Sans',sans-serif;font-weight:500;font-weight:600;font-size:19px;letter-spacing:0.26em;line-height:1">PIERCE</span><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.22em;line-height:1;color:#AEB8BD">CONSULTING GROUP</span></span>
+    </a>
+    <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Primary" style="display:flex;align-items:center;gap:clamp(16px,2vw,30px)">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="6">
+          <a href="{{ item.href }}" aria-current="{{ item.current }}" style="font-size:14px;font-weight:500;color:{{ item.color }};text-decoration:none;padding:12px 0 10px;border-bottom:1px solid {{ item.line }};transition:border-color 180ms ease,color 180ms ease" style-hover="border-bottom-color:#C9B07F;color:#FFFFFF">{{ item.label }}</a>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="#/contact" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;background:#C9B07F;color:#17242B;font-size:14px;font-weight:600;text-decoration:none;border-radius:2px;transition:background 180ms ease;white-space:nowrap" style-hover="background:#F7F5EF;color:#17242B">{{ headerCtaLabel }} <span aria-hidden="true">→</span></a>
+      <sc-if value="{{ showMenuButton }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ openMenu }}" aria-expanded="{{ menuOpenStr }}" aria-controls="mobile-menu" style="min-height:44px;min-width:44px;padding:0 14px;background:transparent;border:1px solid rgba(247,245,239,0.35);border-radius:2px;color:#F7F5EF;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:10px">
+          <span aria-hidden="true" style="display:flex;flex-direction:column;gap:4px"><span style="display:block;width:16px;height:1px;background:#F7F5EF"></span><span style="display:block;width:16px;height:1px;background:#F7F5EF"></span><span style="display:block;width:10px;height:1px;background:#C9B07F"></span></span>
+          Menu
+        </button>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" style="position:fixed;inset:0;z-index:120;background:#17242B;color:#F7F5EF;display:flex;flex-direction:column;padding:20px clamp(20px,5vw,40px) 32px;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;min-height:56px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#C9B07F">MENU</span>
+      <button type="button" id="menu-close" onClick="{{ closeMenu }}" style="min-height:44px;padding:0 16px;background:transparent;border:1px solid rgba(247,245,239,0.4);color:#F7F5EF;font-size:14px;border-radius:2px;cursor:pointer">Close <span aria-hidden="true">×</span></button>
+    </div>
+    <nav aria-label="Mobile" style="display:flex;flex-direction:column;margin-top:24px;border-top:1px solid rgba(247,245,239,0.16)">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="6">
+        <a href="{{ item.href }}" aria-current="{{ item.current }}" style="display:flex;justify-content:space-between;align-items:center;min-height:60px;border-bottom:1px solid rgba(247,245,239,0.16);color:#F7F5EF;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:26px;font-weight:500;letter-spacing:-0.01em">
+          <span>{{ item.label }}</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:#C9B07F">{{ item.num }}</span>
+        </a>
+      </sc-for>
+    </nav>
+    <a href="#/contact" style="margin-top:32px;display:flex;justify-content:center;align-items:center;min-height:52px;background:#F7F5EF;color:#17242B;font-weight:500;text-decoration:none;border-radius:2px">Request a Consultation</a>
+    <div style="margin-top:28px;display:flex;flex-direction:column;gap:8px;font-size:15px">
+      <a href="{{ mailHref }}" style="color:#F7F5EF;overflow-wrap:anywhere">{{ email }}</a>
+      <a href="{{ telHref }}" style="color:#F7F5EF">{{ phone }}</a>
+    </div>
+  </div>
+</sc-if>
+
+<main id="main" tabindex="-1" style="outline:none;display:block">
+
+<sc-if value="{{ isInterior }}" hint-placeholder-val="{{ false }}">
+  <nav aria-label="Breadcrumb" style="max-width:1360px;margin:0 auto;padding:28px clamp(20px,4vw,48px) 0">
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#53616A">
+      <li><a href="#/" style="color:#53616A">Home</a></li>
+      <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="1">
+        <li style="display:flex;gap:10px"><span aria-hidden="true">/</span><sc-if value="{{ c.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ c.href }}" style="color:#53616A">{{ c.label }}</a></sc-if><sc-if value="{{ c.isCurrent }}" hint-placeholder-val="{{ true }}"><span aria-current="page" style="color:#17242B">{{ c.label }}</span></sc-if></li>
+      </sc-for>
+    </ol>
+  </nav>
+</sc-if>
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Home — Hero" aria-labelledby="home-h1" onMouseMove="{{ heroSpot }}" style="position:relative;background:#17242B;color:#F7F5EF;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(247,245,239,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(247,245,239,0.07) 1px,transparent 1px);background-size:64px 64px"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(480px circle at var(--x,72%) var(--y,28%),rgba(201,176,127,0.18),transparent 70%)"></div>
+    <div style="position:relative;max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(56px,7vw,104px);display:flex;flex-direction:column;gap:clamp(40px,5vw,72px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em">
+        <span style="color:#C9B07F">BUSINESS CONSULTING · BOSTON, MASSACHUSETTS</span>
+        <span style="color:#AEB8BD">42.3601° N — 71.0589° W</span>
+      </div>
+      <h1 id="home-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(50px,8.4vw,132px);line-height:0.95;letter-spacing:-0.045em;max-width:12.5ch;text-wrap:balance">Make your next business decision with <em style="font-style:italic;font-weight:400;color:#C9B07F">greater clarity.</em></h1>
+      <div style="display:flex;flex-wrap:wrap;gap:48px clamp(40px,6vw,96px);align-items:flex-end">
+        <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:30px">
+          <p style="margin:0;max-width:46ch;font-size:clamp(17px,1.4vw,19px);line-height:1.6;color:#C3CBCF;text-wrap:pretty">Pierce Consulting Group works with businesses to evaluate the challenges in front of them, improve how operations run, and plan practical next steps their teams can act on.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <a href="#/contact" style="display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:0 28px;background:#C9B07F;color:#17242B;font-size:16px;font-weight:600;text-decoration:none;border-radius:2px;transition:background 180ms ease,gap 180ms ease" style-hover="background:#F7F5EF;color:#17242B;gap:20px">Request a Consultation <span aria-hidden="true">→</span></a>
+            <a href="#/services" style="display:inline-flex;align-items:center;min-height:56px;padding:0 28px;border:1px solid rgba(247,245,239,0.45);color:#F7F5EF;font-size:16px;font-weight:500;text-decoration:none;border-radius:2px;transition:background 180ms ease" style-hover="background:rgba(247,245,239,0.08);color:#FFFFFF">Explore Our Services</a>
+          </div>
+        </div>
+        <div style="flex:1.25 1 460px;min-width:0" onMouseEnter="{{ heroEnter }}" onMouseLeave="{{ heroLeave }}" onFocus="{{ heroEnter }}" onBlur="{{ heroLeave }}">
+          <div role="region" aria-label="Challenge map" style="background:#F7F5EF;color:#17242B;padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:22px;box-shadow:0 40px 80px -40px rgba(0,0,0,0.6);background-image:linear-gradient(rgba(23,36,43,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(23,36,43,0.06) 1px,transparent 1px);background-size:32px 32px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;font-size:11px;color:#53616A">CHALLENGE MAP · {{ heroCounter }}</span>
+              <sc-if value="{{ heroCanRotate }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ toggleHero }}" aria-label="{{ heroToggleLabel }}" style="min-height:36px;padding:0 12px;background:transparent;border:1px solid rgba(23,36,43,0.3);border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#17242B">{{ heroToggleText }}</button></sc-if>
+            </div>
+            <p style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(22px,2vw,28px);line-height:1.2;letter-spacing:-0.015em">Where is the pressure coming from?</p>
+            <div role="tablist" aria-label="Challenge area" onKeyDown="{{ heroTabKey }}" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+              <sc-for list="{{ heroTabs }}" as="t" hint-placeholder-count="3">
+                <button type="button" role="tab" id="{{ t.id }}" aria-selected="{{ t.selected }}" aria-controls="hero-panel" tabIndex="{{ t.tabIndex }}" onClick="{{ t.onClick }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:72px;padding:14px;background:{{ t.bg }};color:{{ t.color }};border:1px solid {{ t.border }};border-radius:2px;cursor:pointer;text-align:left;transition:background 220ms ease,color 220ms ease">
+                  <span style="font-family:'DM Mono',monospace;font-size:11px">{{ t.num }}</span>
+                  <span style="font-size:15px;font-weight:600">{{ t.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div id="hero-panel" role="tabpanel" aria-labelledby="{{ heroFocus.tabId }}" aria-live="polite" style="display:flex;flex-direction:column">
+              <ol style="list-style:none;margin:0;padding:0;border-top:1px solid #17242B">
+                <sc-for list="{{ heroFocus.questions }}" as="q" hint-placeholder-count="3">
+                  <li style="display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;padding:14px 0;border-bottom:1px solid rgba(23,36,43,0.14);font-size:16px;line-height:1.45"><span style="font-family:'DM Mono',monospace;font-size:11px;color:#6E5A36;padding-top:4px">{{ q.num }}</span><span>{{ q.text }}</span></li>
+                </sc-for>
+              </ol>
+              <a href="{{ heroFocus.contactHref }}" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 20px;background:#17242B;color:#F7F5EF;text-decoration:none;border-radius:2px;transition:padding 200ms ease" style-hover="padding-left:26px;padding-right:14px;color:#FFFFFF">
+                <span style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#C9B07F">OFTEN RELATED TO</span><span style="font-size:16px;font-weight:500">{{ heroFocus.service }}</span></span>
+                <span aria-hidden="true" style="font-size:20px">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="background:#C9B07F;color:#17242B;overflow:hidden;border-bottom:1px solid #17242B">{{ ticker }}</div>
+
+  <section data-screen-label="Home — Proposition" aria-labelledby="prop-h" style="background:#F7F5EF">
+    <div style="max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(80px,10vw,144px);padding-bottom:clamp(80px,10vw,144px);display:flex;flex-direction:column;gap:48px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">§ 01 — THE PROPOSITION</span>
+      <div style="display:flex;flex-wrap:wrap;gap:32px clamp(40px,6vw,96px);align-items:flex-end">
+        <h2 id="prop-h" style="flex:2 1 560px;margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(38px,5.6vw,88px);line-height:0.98;letter-spacing:-0.04em;color:#17242B;text-wrap:balance">A clearer view of the <span style="color:transparent;-webkit-text-stroke:1.5px #17242B">business</span> in front of you.</h2>
+        <p style="flex:1 1 300px;margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:44ch">Most organizations don't lack effort. They lack a shared, explicit picture of what matters most and why. We help leadership build that picture — then turn it into decisions the business can carry forward.</p>
+      </div>
+      <div role="tablist" aria-label="Working principles" style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-for list="{{ principlePanels }}" as="p" hint-placeholder-count="3">
+          <button type="button" role="tab" aria-selected="{{ p.selected }}" onClick="{{ p.onClick }}" onMouseEnter="{{ p.onClick }}" onFocus="{{ p.onClick }}" style="flex:{{ p.flex }};flex-basis:260px;min-width:0;min-height:clamp(260px,26vw,360px);padding:clamp(24px,2.6vw,36px);display:flex;flex-direction:column;justify-content:space-between;gap:24px;text-align:left;background:{{ p.bg }};color:{{ p.color }};border:1px solid #17242B;border-radius:2px;cursor:pointer;transition:flex-grow 500ms cubic-bezier(.2,.7,.2,1),background 300ms ease,color 300ms ease">
+            <span style="display:flex;justify-content:space-between;align-items:flex-start;width:100%"><span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(48px,5vw,80px);line-height:0.9;letter-spacing:-0.05em">{{ p.num }}</span><span aria-hidden="true" style="width:36px;height:36px;border:1px solid {{ p.ring }};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px">{{ p.icon }}</span></span>
+            <span style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(22px,2.2vw,30px);line-height:1.1;letter-spacing:-0.02em">{{ p.title }}</span>
+              <span style="font-size:15px;line-height:1.6;max-width:40ch;opacity:{{ p.textOpacity }};transition:opacity 300ms ease;color:{{ p.sub }}">{{ p.text }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home — Services" aria-labelledby="home-services-h" style="background:#FFFFFF">
+    <div style="max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(80px,10vw,136px);padding-bottom:clamp(80px,10vw,136px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px">
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:760px">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">§ 02 — CONSULTING SERVICES</span>
+          <h2 id="home-services-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">Three ways we help a business move forward.</h2>
+        </div>
+        <a href="#/services" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:15px;font-weight:500;color:#17242B;text-decoration:underline">View All Services <span aria-hidden="true">→</span></a>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ bentoCols }};gap:12px">
+        <a href="#/services/strategy" style="grid-row:{{ bentoSpan }};position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:520px;padding:clamp(28px,3vw,44px);background:#17242B;color:#F7F5EF;text-decoration:none;border-radius:2px;transition:transform 300ms cubic-bezier(.2,.7,.2,1)" style-hover="transform:translateY(-4px);color:#F7F5EF">
+          <div aria-hidden="true" style="position:absolute;right:-1px;top:-1px;width:62%;aspect-ratio:1/1;border-left:1px solid rgba(247,245,239,0.18);border-bottom:1px solid rgba(247,245,239,0.18);background-image:linear-gradient(rgba(247,245,239,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(247,245,239,0.07) 1px,transparent 1px);background-size:64px 64px;background-size:40px 40px">
+            <span style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(247,245,239,0.3)"></span><span style="position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(247,245,239,0.3)"></span>
+            <span style="position:absolute;left:24%;top:22%;width:14px;height:14px;border-radius:50%;background:#C9B07F;box-shadow:0 0 0 8px rgba(201,176,127,0.18)"></span>
+            <span style="position:absolute;left:70%;top:30%;width:10px;height:10px;border-radius:50%;border:1px solid #F7F5EF"></span>
+            <span style="position:absolute;left:36%;top:68%;width:10px;height:10px;border-radius:50%;border:1px solid #F7F5EF"></span>
+            <span style="position:absolute;left:74%;top:74%;width:10px;height:10px;border-radius:50%;border:1px solid #F7F5EF"></span>
+          </div>
+          <span style="position:relative;font-family:'DM Mono',monospace;font-size:13px;color:#C9B07F">01 / DIRECTION</span>
+          <div style="position:relative;display:flex;flex-direction:column;gap:18px">
+            <span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(34px,3.6vw,52px);line-height:1;letter-spacing:-0.03em">Business Strategy</span>
+            <span style="font-size:17px;line-height:1.6;color:#C3CBCF;max-width:42ch">Strategic priorities, business direction, and decision support for leadership teams weighing where to focus next.</span>
+            <span style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ svcStrategy.focus }}" as="f" hint-placeholder-count="4"><span style="font-size:13px;padding:7px 12px;border:1px solid rgba(247,245,239,0.3);border-radius:2px">{{ f }}</span></sc-for></span>
+            <span style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#C9B07F">Explore Service <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+        <a href="#/services/operations" style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:254px;padding:clamp(24px,2.6vw,36px);background:#C9B07F;color:#17242B;text-decoration:none;border-radius:2px;transition:transform 300ms cubic-bezier(.2,.7,.2,1)" style-hover="transform:translateY(-4px);color:#17242B">
+          <div style="display:flex;justify-content:space-between;gap:16px;align-items:center">
+            <span style="font-family:'DM Mono',monospace;font-size:13px">02 / EXECUTION</span>
+            <span aria-hidden="true" style="display:flex;align-items:center;flex:0 1 200px"><span style="width:10px;height:10px;border:1px solid #17242B;border-radius:50%"></span><span style="flex:1;height:1px;background:#17242B"></span><span style="width:18px;height:18px;border:1px dashed #17242B;border-radius:50%;display:flex;align-items:center;justify-content:center"><span style="width:6px;height:6px;background:#17242B;border-radius:50%"></span></span><span style="flex:1;height:1px;background:#17242B"></span><span style="width:10px;height:10px;border:1px solid #17242B;border-radius:50%"></span></span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,2.6vw,38px);line-height:1.05;letter-spacing:-0.025em">Operational Improvement</span>
+            <span style="font-size:16px;line-height:1.55;max-width:44ch">Operational challenges, workflow efficiency, and opportunities to improve execution.</span>
+            <span style="font-size:15px;font-weight:600">Explore Service →</span>
+          </div>
+        </a>
+        <a href="#/services/process" style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:254px;padding:clamp(24px,2.6vw,36px);background:#E8E5DC;color:#17242B;text-decoration:none;border-radius:2px;transition:transform 300ms cubic-bezier(.2,.7,.2,1)" style-hover="transform:translateY(-4px);color:#17242B">
+          <div style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap">
+            <span style="font-family:'DM Mono',monospace;font-size:13px;color:#6E5A36">03 / PROCESS</span>
+            <span aria-hidden="true" style="display:flex;gap:4px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em"><span style="padding:5px 7px;border:1px solid #17242B">MAP</span><span style="padding:5px 7px;border:1px solid #17242B">ASSESS</span><span style="padding:5px 7px;border:1px solid #17242B">SIMPLIFY</span><span style="padding:5px 7px;background:#17242B;color:#F7F5EF;border:1px solid #17242B">SUSTAIN</span></span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,2.6vw,38px);line-height:1.05;letter-spacing:-0.025em">Process Consulting</span>
+            <span style="font-size:16px;line-height:1.55;color:#3A464C;max-width:44ch">Process assessment, workflow clarity, and improvement planning.</span>
+            <span style="font-size:15px;font-weight:600">Explore Service →</span>
+          </div>
+        </a>
+        <a href="#/contact?service=other" style="grid-column:1 / -1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;min-height:88px;padding:20px clamp(24px,2.6vw,36px);border:1px solid #17242B;color:#17242B;text-decoration:none;border-radius:2px;transition:background 220ms ease,color 220ms ease" style-hover="background:#17242B;color:#F7F5EF">
+          <span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(20px,2vw,26px);letter-spacing:-0.015em">Not sure which fits? Start with the situation, not the service.</span>
+          <span style="font-size:15px;font-weight:600">Talk it through →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home — Challenges" aria-labelledby="home-chal-h" style="background:#F7F5EF">
+    <div style="max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(80px,10vw,136px);padding-bottom:clamp(80px,10vw,136px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px">
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:760px">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">§ 03 — CHALLENGES WE HELP EXPLORE</span>
+          <h2 id="home-chal-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">Situations a business may recognize.</h2>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#53616A;max-width:36ch">Select one to see the service it most often relates to. A starting point for conversation — not an assessment.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0;border-top:1px solid #17242B">
+        <div id="challenge-detail" aria-live="polite" style="flex:1 1 420px;min-width:0;padding:36px clamp(0px,4vw,64px) 40px 0;display:flex;flex-direction:column;gap:20px">
+          <span aria-hidden="true" style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(120px,15vw,232px);line-height:0.8;letter-spacing:-0.06em;color:transparent;-webkit-text-stroke:1.5px #17242B">{{ activeChallenge.num }}</span>
+          <h3 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(26px,2.6vw,36px);line-height:1.1;letter-spacing:-0.02em;color:#17242B">{{ activeChallenge.title }}</h3>
+          <p style="margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:48ch">{{ activeChallenge.desc }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+            <a href="{{ activeChallenge.contactHref }}" style="display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#243943;color:#FFFFFF">Discuss Your Business Challenge <span aria-hidden="true">→</span></a>
+            <a href="{{ activeChallenge.serviceHref }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 20px;border:1px solid #17242B;color:#17242B;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#E8E5DC">{{ activeChallenge.serviceTitle }}</a>
+          </div>
+        </div>
+        <div role="group" aria-label="Business challenges" style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;padding-top:12px">
+          <sc-for list="{{ challenges }}" as="c" hint-placeholder-count="5">
+            <button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.pressed }}" aria-controls="challenge-detail" style="display:grid;grid-template-columns:44px minmax(0,1fr) 24px;align-items:center;gap:12px;min-height:76px;padding:16px 20px;margin-bottom:6px;text-align:left;background:{{ c.bg }};color:{{ c.color }};border:1px solid {{ c.border }};border-radius:2px;cursor:pointer;font-size:17px;font-weight:500;transition:background 240ms ease,color 240ms ease" style-hover="border-color:#17242B">
+              <span style="font-family:'DM Mono',monospace;font-size:12px;color:{{ c.numColor }}">{{ c.num }}</span>
+              <span>{{ c.title }}</span>
+              <span aria-hidden="true" style="color:{{ c.numColor }}">{{ c.mark }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home — Who we work with" aria-labelledby="home-who-h" style="background:#FFFFFF">
+    <div style="max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(80px,10vw,136px);padding-bottom:clamp(80px,10vw,136px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px">
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:760px">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">§ 04 — WHO WE WORK WITH</span>
+          <h2 id="home-who-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">Built for the people who make the call.</h2>
+        </div>
+      </div>
+      <div style="border-top:1px solid #17242B">
+        <sc-for list="{{ audiences }}" as="a" hint-placeholder-count="4">
+          <a href="#/services" style="display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:8px 24px;padding:28px 0;border-bottom:1px solid rgba(23,36,43,0.16);color:#17242B;text-decoration:none;transition:background 260ms ease,color 260ms ease,padding 260ms ease" style-hover="background:#17242B;color:#F7F5EF;padding-left:24px;padding-right:24px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:inherit;opacity:0.7">{{ a.num }}</span>
+            <span style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 28px"><span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(24px,3.4vw,48px);letter-spacing:-0.03em;line-height:1.05">{{ a.title }}</span><span style="font-size:15px;opacity:0.8;max-width:34ch">{{ a.note }}</span></span>
+            <span aria-hidden="true" style="font-size:22px">→</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home — Process" aria-labelledby="home-proc-h" style="position:relative;background:#17242B;color:#F7F5EF;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(247,245,239,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(247,245,239,0.07) 1px,transparent 1px);background-size:64px 64px"></div>
+    <div style="position:relative;max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(80px,10vw,136px);padding-bottom:clamp(80px,10vw,136px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:760px">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#C9B07F">§ 05 — HOW AN ENGAGEMENT BEGINS</span>
+          <h2 id="home-proc-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-0.035em;text-wrap:balance">What happens after you get in touch.</h2>
+        </div>
+        <a href="#/approach" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:15px;font-weight:500;color:#F7F5EF;text-decoration:underline">Learn About Our Approach <span aria-hidden="true">→</span></a>
+      </div>
+      <div style="position:relative;margin-top:64px">
+        <div aria-hidden="true" style="position:absolute;left:24px;right:24px;top:24px;height:1px;background:rgba(247,245,239,0.2)"></div>
+        <div aria-hidden="true" style="position:absolute;left:24px;right:24px;top:24px;height:1px;background:#C9B07F;transform-origin:left center;transform:scaleX({{ procScale }});transition:transform 500ms cubic-bezier(.2,.7,.2,1)"></div>
+        <div role="tablist" aria-label="Engagement stages" style="position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ homeSteps }}" as="s" hint-placeholder-count="4">
+            <button type="button" role="tab" aria-selected="{{ s.selected }}" aria-controls="home-step-panel" onClick="{{ s.onClick }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:0 0 12px;background:transparent;border:0;color:#F7F5EF;text-align:left;cursor:pointer">
+              <span style="width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;background:{{ s.dotBg }};color:{{ s.dotColor }};border:1px solid {{ s.dotBorder }};transition:background 300ms ease,color 300ms ease">{{ s.num }}</span>
+              <span style="display:{{ stepTitleDisplay }};font-size:17px;font-weight:500;opacity:{{ s.opacity }};transition:opacity 300ms ease">{{ s.title }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div id="home-step-panel" role="tabpanel" aria-live="polite" style="margin-top:40px;padding-top:40px;border-top:1px solid rgba(247,245,239,0.16);display:flex;flex-wrap:wrap;gap:24px clamp(40px,6vw,96px);align-items:flex-start">
+        <div style="flex:1 1 360px;min-width:0;display:flex;align-items:baseline;gap:24px">
+          <span aria-hidden="true" style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(80px,9vw,140px);line-height:0.8;letter-spacing:-0.06em;color:#C9B07F">{{ homeStage.num }}</span>
+          <span style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,42px);line-height:1.05;letter-spacing:-0.025em">{{ homeStage.title }}</span>
+        </div>
+        <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ homeStage.points }}" as="pt" hint-placeholder-count="2"><p style="margin:0;font-size:17px;line-height:1.6;color:#C3CBCF;max-width:52ch">{{ pt }}</p></sc-for>
+          <p style="margin:8px 0 0;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#AEB8BD">SCOPE AND SEQUENCE DEPEND ON EACH CLIENT'S NEEDS.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home — Insights" aria-labelledby="home-ins-h" style="background:#F7F5EF">
+    <div style="max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(56px,7vw,88px);padding-bottom:clamp(56px,7vw,88px)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:20px;padding-bottom:24px;border-bottom:1px solid #17242B">
+        <h2 id="home-ins-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,40px);letter-spacing:-0.025em;color:#17242B">Insights</h2>
+        <a href="#/insights" style="display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:500;color:#17242B;text-decoration:underline">Visit Insights →</a>
+      </div>
+      <sc-if value="{{ hasInsights }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 32px">
+          <sc-for list="{{ insightsPreview }}" as="i" hint-placeholder-count="3">
+            <article style="padding:28px 0;border-bottom:1px solid rgba(23,36,43,0.14);display:flex;flex-direction:column;gap:12px">
+              <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#6E5A36">{{ i.catUpper }} · {{ i.date }}</span>
+              <h3 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:22px;line-height:1.25;color:#17242B"><a href="{{ i.href }}" style="color:#17242B;text-decoration:none" style-hover="text-decoration:underline">{{ i.title }}</a></h3>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#53616A">{{ i.excerpt }}</p>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noInsights }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding:28px 0;align-items:center">
+          <p style="margin:0;font-size:17px;line-height:1.6;color:#3A464C;max-width:60ch">Practical perspectives on strategy, operations, and process will be published here.</p>
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#53616A;padding:8px 12px;border:1px solid rgba(23,36,43,0.3)">FORTHCOMING</span>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ============ SERVICES ============ -->
+<sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Services — Hero" aria-labelledby="svc-h1" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) 0">
+    <div style="display:flex;flex-wrap:wrap;gap:32px 80px;align-items:flex-end;padding-bottom:48px">
+      <h1 id="svc-h1" style="flex:1.4 1 520px;margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(40px,5.2vw,64px);line-height:1.04;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">Practical consulting for the challenges that matter.</h1>
+      <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <p style="margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:50ch">Three service areas — strategy, operations, and process — each scoped around the specific situation your business is working through.</p>
+        <a href="#/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#243943;color:#FFFFFF">Discuss Your Requirements</a>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));border-top:1px solid #17242B;border-left:1px solid rgba(23,36,43,0.14)">
+      <sc-for list="{{ serviceTabs }}" as="t" hint-placeholder-count="3">
+        <button type="button" onClick="{{ t.onClick }}" style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;text-align:left;padding:28px 24px 32px;background:#FFFFFF;border:0;border-right:1px solid rgba(23,36,43,0.14);border-bottom:1px solid rgba(23,36,43,0.14);cursor:pointer;transition:background 180ms ease" style-hover="background:#E8E5DC">
+          <span style="font-family:'DM Mono',monospace;font-size:13px;color:#6E5A36">{{ t.num }}</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:24px;font-weight:500;letter-spacing:-0.015em;color:#17242B">{{ t.title }}</span>
+          <span style="font-size:15px;line-height:1.6;color:#3A464C">{{ t.summary }}</span>
+          <span style="font-size:14px;font-weight:500;color:#17242B;text-decoration:underline;text-underline-offset:3px">Jump to section ↓</span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <nav aria-label="Service sections" style="position:sticky;top:{{ stickyTop }};z-index:40;background:rgba(247,245,239,0.97);border-bottom:1px solid rgba(23,36,43,0.12);margin-top:48px">
+    <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:flex;gap:0;overflow-x:auto">
+      <sc-for list="{{ serviceTabs }}" as="t" hint-placeholder-count="3">
+        <button type="button" onClick="{{ t.onClick }}" aria-current="{{ t.current }}" style="flex:none;display:flex;align-items:center;gap:10px;min-height:56px;padding:0 24px 0 0;margin-right:24px;background:transparent;border:0;border-bottom:2px solid {{ t.line }};cursor:pointer;font-size:15px;font-weight:500;color:#17242B;white-space:nowrap">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36">{{ t.num }}</span>{{ t.title }}
+        </button>
+      </sc-for>
+    </div>
+  </nav>
+
+  <section id="svc-strategy" data-screen-label="Services — Strategy" aria-labelledby="svc-strategy-h" style="max-width:1360px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,96px);align-items:center">
+    <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:22px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">SERVICE 01</span>
+      <h2 id="svc-strategy-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(32px,3.6vw,46px);line-height:1.08;letter-spacing:-0.025em;color:#17242B">Business Strategy</h2>
+      <p style="margin:0;font-family:'DM Sans',sans-serif;font-style:italic;font-size:21px;line-height:1.45;color:#243943;max-width:40ch">{{ svcStrategy.purpose }}</p>
+      <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:56ch">{{ svcStrategy.body }}</p>
+      <div style="border-top:1px solid #17242B;padding-top:18px">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">POTENTIAL FOCUS AREAS</span>
+        <ul style="list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0 24px">
+          <sc-for list="{{ svcStrategy.focus }}" as="f" hint-placeholder-count="4"><li style="padding:12px 0;border-bottom:1px solid rgba(23,36,43,0.12);font-size:15px;color:#29343A">{{ f }}</li></sc-for>
+        </ul>
+      </div>
+      <a href="#/contact?service=strategy" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#243943;color:#FFFFFF">Discuss Business Strategy</a>
+    </div>
+    <figure style="flex:1 1 420px;min-width:0;margin:0;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;justify-content:space-between;gap:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A"><span>PRIORITY MATRIX — SELECT AN ITEM</span><span>FIG. 01</span></div>
+      <div style="position:relative;aspect-ratio:1/1;border:1px solid #17242B;background:#FFFFFF;background-image:linear-gradient(rgba(23,36,43,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,36,43,0.05) 1px,transparent 1px);background-size:32px 32px">
+        <div aria-hidden="true" style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(23,36,43,0.3)"></div>
+        <div aria-hidden="true" style="position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(23,36,43,0.3)"></div>
+        <span aria-hidden="true" style="position:absolute;left:14px;top:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">PRIORITIZE</span><span aria-hidden="true" style="position:absolute;right:14px;top:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">PLAN</span><span aria-hidden="true" style="position:absolute;left:14px;bottom:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">IF CAPACITY</span><span aria-hidden="true" style="position:absolute;right:14px;bottom:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">QUESTION</span>
+        <div role="group" aria-label="Illustrative initiatives">
+          <sc-for list="{{ matrixItems }}" as="m" hint-placeholder-count="5">
+            <button type="button" onClick="{{ m.onClick }}" aria-pressed="{{ m.pressed }}" aria-label="{{ m.aria }}" style="position:absolute;left:{{ m.x }};top:{{ m.y }};transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;border:1px solid #17242B;background:{{ m.bg }};color:{{ m.color }};font-family:'DM Mono',monospace;font-size:13px;cursor:pointer;transition:background 180ms ease,color 180ms ease">{{ m.id }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div aria-hidden="true" style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A"><span>↑ IMPACT</span><span>EFFORT →</span></div>
+      <div aria-live="polite" style="padding:16px 18px;background:#17242B;color:#F7F5EF;display:flex;flex-direction:column;gap:6px">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#C9B07F">INITIATIVE {{ matrixSel.id }}</span>
+        <span style="font-size:16px;line-height:1.5">{{ matrixSel.note }}</span>
+      </div>
+      <figcaption style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">ILLUSTRATIVE — ABSTRACT ITEMS, NOT CLIENT DATA</figcaption>
+    </figure>
+  </section>
+
+  <section id="svc-operations" data-screen-label="Services — Operations" aria-labelledby="svc-ops-h" style="background:#FFFFFF;border-top:1px solid rgba(23,36,43,0.08);border-bottom:1px solid rgba(23,36,43,0.08)">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap-reverse;gap:clamp(40px,6vw,96px);align-items:center">
+      <figure style="flex:1.2 1 460px;min-width:0;margin:0;border:1px solid rgba(23,36,43,0.16);padding:clamp(24px,3vw,40px);background:#F7F5EF;display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A"><span>WORKFLOW — CURRENT STATE</span><span>FIG. 02</span></div>
+        <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:12px 0">
+          <sc-for list="{{ opsNodes }}" as="n" hint-placeholder-count="4">
+            <div style="flex:1 1 110px;display:flex;align-items:center;min-width:0">
+              <button type="button" onClick="{{ n.onClick }}" aria-pressed="{{ n.pressed }}" style="flex:1;min-width:0;min-height:64px;padding:16px 12px;border:1px {{ n.borderStyle }} {{ n.borderColor }};background:{{ n.bg }};display:flex;flex-direction:column;align-items:flex-start;gap:6px;cursor:pointer;text-align:left;transition:background 180ms ease">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#6E5A36">{{ n.code }}</span>
+                <span style="font-size:14px;font-weight:500;color:#17242B">{{ n.label }}</span>
+              </button>
+              <span aria-hidden="true" style="width:14px;height:1px;background:#17242B;flex:none;opacity:{{ n.connector }}"></span>
+            </div>
+          </sc-for>
+        </div>
+        <div aria-live="polite" style="display:flex;flex-direction:column;gap:6px;padding:16px;border:1px dashed #A88D5D;background:#FFFFFF">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#6E5A36">EXAMINING — {{ opsSel.code }} · {{ opsSel.labelUpper }}</span>
+          <span style="font-size:15px;line-height:1.55;color:#29343A">{{ opsSel.note }}</span>
+        </div>
+        <p style="margin:0;font-size:13px;color:#53616A">Select a stage to examine where work may be constrained.</p>
+        <figcaption style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#53616A;border-top:1px solid rgba(23,36,43,0.12);padding-top:14px">ILLUSTRATIVE SCHEMATIC — NOT CLIENT DATA</figcaption>
+      </figure>
+      <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">SERVICE 02</span>
+        <h2 id="svc-ops-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(32px,3.6vw,46px);line-height:1.08;letter-spacing:-0.025em;color:#17242B">Operational Improvement</h2>
+        <p style="margin:0;font-family:'DM Sans',sans-serif;font-style:italic;font-size:21px;line-height:1.45;color:#243943;max-width:40ch">{{ svcOps.purpose }}</p>
+        <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:56ch">{{ svcOps.body }}</p>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid #17242B">
+          <sc-for list="{{ svcOps.focus }}" as="f" hint-placeholder-count="4"><li style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(23,36,43,0.12);font-size:15px;color:#29343A"><span>{{ f }}</span><span aria-hidden="true" style="color:#A88D5D">—</span></li></sc-for>
+        </ul>
+        <a href="#/contact?service=operations" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#243943;color:#FFFFFF">Discuss Operational Improvement</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="svc-process" data-screen-label="Services — Process" aria-labelledby="svc-proc-h" style="max-width:1360px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;gap:24px 80px;align-items:flex-end;margin-bottom:48px">
+      <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">SERVICE 03</span>
+        <h2 id="svc-proc-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(32px,3.6vw,46px);line-height:1.08;letter-spacing:-0.025em;color:#17242B">Process Consulting</h2>
+        <p style="margin:0;font-family:'DM Sans',sans-serif;font-style:italic;font-size:21px;line-height:1.45;color:#243943;max-width:44ch">{{ svcProcess.purpose }}</p>
+      </div>
+      <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px">
+        <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:56ch">{{ svcProcess.body }}</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#53616A">Focus areas: Process mapping · Workflow assessment · Handoffs · Improvement planning</p>
+      </div>
+    </div>
+    <figure style="margin:0;display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(23,36,43,0.16);background:#FFFFFF">
+      <div style="flex:1 1 380px;min-width:0;padding:clamp(24px,3vw,40px);border-right:1px solid rgba(23,36,43,0.12);display:flex;flex-direction:column;gap:22px">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">BEFORE — ACCUMULATED</span>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ procBefore }}" as="b" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:12px;margin-left:{{ b.indent }}">
+              <span style="padding:10px 14px;border:1px solid rgba(23,36,43,0.35);font-size:14px;color:#29343A;background:#F7F5EF">{{ b.label }}</span>
+              <span style="font-family:'DM Mono',monospace;font-size:11px;color:#6E5A36">{{ b.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1 1 380px;min-width:0;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:22px;background:#F7F5EF">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">AFTER — DESIGNED</span>
+        <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0">
+          <sc-for list="{{ procAfter }}" as="a" hint-placeholder-count="4">
+            <li style="display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(23,36,43,0.14)">
+              <span style="width:24px;height:24px;border-radius:50%;background:#17242B;color:#F7F5EF;font-family:'DM Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center">{{ a.num }}</span>
+              <span style="font-size:15px;font-weight:500;color:#17242B">{{ a.label }}</span>
+              <span style="font-family:'DM Mono',monospace;font-size:11px;color:#53616A">{{ a.owner }}</span>
+            </li>
+          </sc-for>
+        </ol>
+      </div>
+      <figcaption style="flex:1 1 100%;padding:14px clamp(24px,3vw,40px);border-top:1px solid rgba(23,36,43,0.12);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#53616A">ABSTRACT BEFORE-AND-AFTER SCHEMATIC — LABELS ARE ILLUSTRATIVE</figcaption>
+    </figure>
+    <a href="#/contact?service=process" style="margin-top:36px;display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#243943;color:#FFFFFF">Discuss Process Consulting</a>
+  </section>
+
+  <section data-screen-label="Services — CTA" style="background:#17242B;color:#F7F5EF">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:28px 64px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(30px,3.4vw,44px);letter-spacing:-0.025em;line-height:1.1">Not sure which service fits your situation?</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#C3CBCF;max-width:52ch">Share your business challenge, and we can begin by understanding what you need.</p>
+      </div>
+      <a href="#/contact?service=other" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;background:#F7F5EF;color:#17242B;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#FFFFFF;color:#17242B">Request a Consultation</a>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ============ INDUSTRIES ============ -->
+<sc-if value="{{ isIndustries }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Industries — Hero" aria-labelledby="ind-h1" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) clamp(64px,8vw,104px);display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,88px);align-items:center">
+    <div style="flex:1.2 1 480px;min-width:0;display:flex;flex-direction:column;gap:24px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">INDUSTRIES</span>
+      <h1 id="ind-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(40px,5.2vw,64px);line-height:1.04;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">Business challenges are specific. <em style="font-weight:400">The right questions matter.</em></h1>
+      <p style="margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:54ch">Every organization operates within its own market, constraints, and history. Rather than start from a sector template, we start by understanding yours.</p>
+    </div>
+    <div style="flex:1 1 400px;min-width:0;background:#FFFFFF;border:1px solid rgba(23,36,43,0.16);padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;justify-content:space-between;gap:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A"><span>QUESTIONS BY AREA</span><span>FIG. 01</span></div>
+      <div role="group" aria-label="Business area" style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ indAreas }}" as="a" hint-placeholder-count="4">
+          <button type="button" onClick="{{ a.onClick }}" aria-pressed="{{ a.selected }}" style="min-height:44px;padding:0 14px;background:{{ a.bg }};color:{{ a.color }};border:1px solid #17242B;border-radius:2px;font-size:14px;cursor:pointer;transition:background 180ms ease">{{ a.label }}</button>
+        </sc-for>
+      </div>
+      <ol aria-live="polite" style="list-style:none;margin:0;padding:0;border-top:1px solid #17242B">
+        <sc-for list="{{ indQuestions }}" as="q" hint-placeholder-count="3">
+          <li style="display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;padding:14px 0;border-bottom:1px solid rgba(23,36,43,0.12);font-size:15px;line-height:1.5;color:#29343A"><span style="font-family:'DM Mono',monospace;font-size:11px;color:#6E5A36;padding-top:3px">{{ q.num }}</span><span>{{ q.text }}</span></li>
+        </sc-for>
+      </ol>
+      <p style="margin:0;font-size:13px;color:#53616A">Examples of questions an initial conversation may cover.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Industries — Directory" aria-labelledby="ind-dir-h" style="background:#FFFFFF;border-top:1px solid rgba(23,36,43,0.08);border-bottom:1px solid rgba(23,36,43,0.08)">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px)">
+      <sc-if value="{{ hasIndustries }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-if value="{{ templatePreview }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 12px;padding:10px 14px;border:1px dashed #A88D5D;font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36">TEMPLATE PREVIEW — sample entries show the layout only. Replace with industries approved by the business.</p></sc-if>
+          <h2 id="ind-dir-h" style="margin:0 0 24px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,38px);letter-spacing:-0.02em;color:#17242B">Industries</h2>
+          <div style="border-top:1px solid #17242B">
+            <sc-for list="{{ industries }}" as="ind" hint-placeholder-count="2">
+              <article style="display:flex;flex-wrap:wrap;gap:12px 48px;padding:28px 0;border-bottom:1px solid rgba(23,36,43,0.14)">
+                <h3 style="flex:1 1 240px;margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:24px;color:#17242B">{{ ind.name }}</h3>
+                <p style="flex:2 1 360px;margin:0;font-size:16px;line-height:1.6;color:#3A464C">{{ ind.desc }}</p>
+                <a href="{{ ind.serviceHref }}" style="flex:0 1 auto;font-size:14px;font-weight:500;color:#17242B;min-height:44px;display:inline-flex;align-items:center">{{ ind.serviceTitle }} →</a>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noIndustries }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:32px 80px;align-items:flex-start">
+          <h2 id="ind-dir-h" style="flex:1 1 380px;margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:-0.02em;color:#17242B;text-wrap:balance">Tell us about your industry, and the challenge in front of you.</h2>
+          <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px">
+            <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:56ch">An initial conversation is the best way to establish whether our services are relevant to your organization. Share your sector, the context you operate in, and what you'd like to work through.</p>
+            <a href="#/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#243943;color:#FFFFFF">Discuss Your Industry and Needs</a>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section data-screen-label="Industries — Cross-industry" aria-labelledby="ind-x-h" style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px)">
+    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:40px;max-width:720px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">GENERAL BUSINESS CHALLENGES</span>
+      <h2 id="ind-x-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,38px);letter-spacing:-0.02em;color:#17242B;text-wrap:balance">Questions that arise across sectors.</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:0;border-top:1px solid #17242B">
+      <sc-for list="{{ crossChallenges }}" as="x" hint-placeholder-count="3">
+        <article style="flex:1 1 300px;min-width:0;padding:28px 28px 32px 0;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid rgba(23,36,43,0.14)">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36">{{ x.num }}</span>
+          <h3 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:22px;color:#17242B">{{ x.title }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#3A464C;max-width:40ch">{{ x.text }}</p>
+          <a href="{{ x.href }}" style="font-size:14px;font-weight:500;color:#17242B;min-height:44px;display:inline-flex;align-items:center">{{ x.serviceTitle }} →</a>
+        </article>
+      </sc-for>
+    </div>
+    <a href="#/contact" style="margin-top:40px;display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;border:1px solid #17242B;color:#17242B;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#E8E5DC">Discuss Your Industry and Needs</a>
+  </section>
+</sc-if>
+
+<!-- ============ APPROACH ============ -->
+<sc-if value="{{ isApproach }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Approach — Hero" aria-labelledby="app-h1" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) clamp(64px,8vw,104px)">
+    <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">OUR APPROACH</span>
+    <h1 id="app-h1" style="margin:22px 0 0;max-width:15ch;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(40px,5.6vw,72px);line-height:1.03;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">A clear process. A focused conversation. <em style="font-weight:400">Practical next steps.</em></h1>
+    <div style="display:flex;flex-wrap:wrap;gap:32px 80px;margin-top:40px;align-items:flex-end">
+      <p style="flex:1 1 380px;margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:54ch">How we work matters as much as what we recommend. Each engagement is shaped around your situation, with clear communication about scope and next steps at every stage.</p>
+      <a href="#/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#243943;color:#FFFFFF">Start a Conversation</a>
+    </div>
+    <div style="margin-top:56px;border-top:1px solid rgba(23,36,43,0.12);padding-top:28px;display:flex;flex-direction:column;gap:24px">
+      <div role="group" aria-label="Engagement stages" style="display:flex;align-items:center">
+        <sc-for list="{{ apNodes }}" as="s" hint-placeholder-count="4">
+          <div style="flex:{{ s.flex }};display:flex;align-items:center;min-width:0">
+            <button type="button" onClick="{{ s.onClick }}" aria-pressed="{{ s.pressed }}" aria-label="{{ s.aria }}" style="flex:none;width:48px;height:48px;border:1px solid #17242B;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;color:{{ s.color }};background:{{ s.bg }};cursor:pointer;transition:background 200ms ease,color 200ms ease">{{ s.num }}</button>
+            <span aria-hidden="true" style="flex:1;height:1px;background:{{ s.line }};margin:0 8px;display:{{ s.lineDisplay }};transition:background 200ms ease"></span>
+          </div>
+        </sc-for>
+      </div>
+      <div aria-live="polite" style="display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline">
+        <span style="font-family:'DM Sans',sans-serif;font-size:24px;font-weight:500;color:#17242B">{{ apStage.num }} — {{ apStage.title }}</span>
+        <span style="font-size:16px;color:#3A464C">{{ apStage.short }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Approach — Principles" aria-labelledby="app-pr-h" style="background:#FFFFFF;border-top:1px solid rgba(23,36,43,0.08);border-bottom:1px solid rgba(23,36,43,0.08)">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px)">
+      <h2 id="app-pr-h" style="margin:0 0 40px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);letter-spacing:-0.025em;color:#17242B">Working principles</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));border-top:1px solid #17242B;border-left:1px solid rgba(23,36,43,0.14)">
+        <sc-for list="{{ principlesApproach }}" as="p" hint-placeholder-count="4">
+          <article style="padding:32px clamp(20px,2.5vw,36px) 40px;border-right:1px solid rgba(23,36,43,0.14);border-bottom:1px solid rgba(23,36,43,0.14);display:flex;flex-direction:column;gap:18px;background:{{ p.bg }}">
+            <div aria-hidden="true" style="width:48px;height:48px;border:1px solid #A88D5D;display:flex;align-items:center;justify-content:center"><span style="width:{{ p.markW }};height:{{ p.markH }};border:1px solid #17242B;border-radius:{{ p.markR }}"></span></div>
+            <h3 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:22px;line-height:1.25;color:#17242B">{{ p.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3A464C">{{ p.text }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Approach — Stages" aria-labelledby="app-st-h" style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,96px)">
+    <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:20px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">ENGAGEMENT STAGES</span>
+      <h2 id="app-st-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.1;letter-spacing:-0.025em;color:#17242B;text-wrap:balance">Four stages, shaped around your needs.</h2>
+      <p style="margin:0;font-size:15px;line-height:1.65;color:#53616A;max-width:40ch">The exact scope and sequence of any engagement depend on the client's situation. Not every enquiry moves through every stage.</p>
+    </div>
+    <ol style="flex:1.6 1 520px;min-width:0;list-style:none;margin:0;padding:0">
+      <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+        <li style="display:grid;grid-template-columns:clamp(56px,8vw,96px) minmax(0,1fr);gap:20px;padding:32px 0;border-top:1px solid rgba(23,36,43,0.16)">
+          <span style="font-family:'DM Sans',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:400;letter-spacing:-0.03em;color:#17242B;line-height:1">{{ s.num }}</span>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <h3 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:24px;color:#17242B">{{ s.title }}</h3>
+            <ul style="margin:0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.6;color:#3A464C;max-width:58ch">
+              <sc-for list="{{ s.points }}" as="pt" hint-placeholder-count="2"><li>{{ pt }}</li></sc-for>
+            </ul>
+          </div>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+
+  <section data-screen-label="Approach — Expectations" aria-labelledby="app-ex-h" style="background:#E8E5DC">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,88px);align-items:center">
+      <div style="flex:1 1 380px;min-width:0;aspect-ratio:4/3;overflow:hidden;background:#D9D5CA"><img src="assets/team-roundtable.png" alt="Four colleagues in conversation around a round table with laptops and notes" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:24px">
+        <h2 id="app-ex-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);letter-spacing:-0.025em;color:#17242B">What clients can expect</h2>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid #17242B">
+          <sc-for list="{{ expectations }}" as="e" hint-placeholder-count="5">
+            <li style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:16px 0;border-bottom:1px solid rgba(23,36,43,0.16);font-size:16px;color:#29343A"><span aria-hidden="true" style="font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36;padding-top:3px">✓</span><span>{{ e }}</span></li>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Approach — FAQ" aria-labelledby="faq-h" style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,96px)">
+    <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:20px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">FREQUENTLY ASKED</span>
+      <h2 id="faq-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);letter-spacing:-0.025em;color:#17242B">Questions before a first conversation.</h2>
+      <a href="#/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#243943;color:#FFFFFF">Request a Consultation</a>
+    </div>
+    <div style="flex:1.6 1 520px;min-width:0;border-top:1px solid #17242B">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid rgba(23,36,43,0.16)">
+          <h3 style="margin:0">
+            <button type="button" id="{{ q.btnId }}" onClick="{{ q.onClick }}" aria-expanded="{{ q.expanded }}" aria-controls="{{ q.panelId }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:64px;padding:18px 0;background:transparent;border:0;text-align:left;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:19px;font-weight:500;color:#17242B">
+              <span>{{ q.q }}</span>
+              <span aria-hidden="true" style="flex:none;width:28px;height:28px;border:1px solid rgba(23,36,43,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;transform:rotate({{ q.rot }});transition:transform 220ms ease">+</span>
+            </button>
+          </h3>
+          <div id="{{ q.panelId }}" role="region" aria-labelledby="{{ q.btnId }}" hidden="{{ q.hidden }}" style="padding:0 48px 24px 0">
+            <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:62ch">{{ q.a }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ============ TEAM ============ -->
+<sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Team — Hero" aria-labelledby="team-h1" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) clamp(64px,8vw,104px);display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,88px);align-items:flex-end">
+    <div style="flex:1.3 1 480px;min-width:0;display:flex;flex-direction:column;gap:24px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">TEAM</span>
+      <h1 id="team-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(40px,5.6vw,72px);line-height:1.03;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">The people behind the conversation.</h1>
+    </div>
+    <p style="flex:1 1 340px;margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:48ch">Consulting is a working relationship. When you get in touch, you speak directly with the people who would be involved in understanding your business.</p>
+  </section>
+
+  <section data-screen-label="Team — Profiles" style="background:#FFFFFF;border-top:1px solid rgba(23,36,43,0.08);border-bottom:1px solid rgba(23,36,43,0.08)">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px)">
+      <sc-if value="{{ hasTeam }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ templatePreview }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 32px;padding:10px 14px;border:1px dashed #A88D5D;font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36">TEMPLATE PREVIEW — profile layout only. Publish only verified names, roles, biographies and approved portraits.</p></sc-if>
+        <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #17242B">
+          <sc-for list="{{ team }}" as="m" hint-placeholder-count="1">
+            <article style="display:flex;flex-wrap:wrap;gap:32px clamp(32px,5vw,72px);padding:40px 0;border-bottom:1px solid rgba(23,36,43,0.14)">
+              <div aria-label="Portrait placeholder" style="flex:0 1 300px;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,#E8E5DC 0 10px,#EFEDE6 10px 20px);display:flex;align-items:flex-end;padding:14px;font-family:'DM Mono',monospace;font-size:11px;color:#53616A">APPROVED PORTRAIT</div>
+              <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#6E5A36">{{ m.role }}</span>
+                <h2 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,38px);letter-spacing:-0.02em;color:#17242B">{{ m.name }}</h2>
+                <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:60ch">{{ m.bio }}</p>
+                <p style="margin:0;font-size:14px;color:#53616A">{{ m.credentials }}</p>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noTeam }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,96px);align-items:stretch">
+          <div style="flex:1 1 380px;min-width:0;aspect-ratio:4/3;overflow:hidden;background:#E8E5DC"><img src="assets/hero-glass-office.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:30% center"></div>
+          <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:22px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">BUSINESS CONTACT</span>
+            <h2 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);letter-spacing:-0.025em;color:#17242B">Weston Pierce</h2>
+            <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:52ch">Enquiries to Pierce Consulting Group are received by Weston Pierce. Get in touch directly, or use the consultation form to share some context first.</p>
+            <dl style="margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 24px;font-size:15px;border-top:1px solid rgba(23,36,43,0.14);padding-top:20px">
+              <dt style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#53616A;padding-top:2px">EMAIL</dt><dd style="margin:0;overflow-wrap:anywhere"><a href="{{ mailHref }}">{{ email }}</a></dd>
+              <dt style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#53616A;padding-top:2px">PHONE</dt><dd style="margin:0"><a href="{{ telHref }}">{{ phone }}</a></dd>
+            </dl>
+            <a href="#/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#243943;color:#FFFFFF">Connect With Pierce Consulting Group</a>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ============ INSIGHTS ============ -->
+<sc-if value="{{ isInsights }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Insights — Hero" aria-labelledby="ins-h1" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) 48px;display:flex;flex-wrap:wrap;gap:24px 80px;align-items:flex-end;border-bottom:1px solid #17242B">
+    <div style="flex:1.3 1 480px;min-width:0;display:flex;flex-direction:column;gap:22px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">INSIGHTS</span>
+      <h1 id="ins-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(40px,5.6vw,72px);line-height:1.03;letter-spacing:-0.035em;color:#17242B;text-wrap:balance">Perspectives for clearer business decisions.</h1>
+    </div>
+    <p style="flex:1 1 340px;margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:48ch">Practical writing on strategy, operations, and process — intended to help leaders frame the questions in front of them.</p>
+  </section>
+
+  <sc-if value="{{ hasInsights }}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Articles" style="max-width:1360px;margin:0 auto;padding:32px clamp(20px,4vw,48px) clamp(64px,8vw,104px)">
+      <sc-if value="{{ templatePreview }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 24px;padding:10px 14px;border:1px dashed #A88D5D;font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36">TEMPLATE PREVIEW — sample articles show the layout only and are not company publications.</p></sc-if>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;margin-bottom:32px">
+        <div role="group" aria-label="Filter by category" style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ insightCats }}" as="c" hint-placeholder-count="4">
+            <button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.pressed }}" style="min-height:44px;padding:0 16px;background:{{ c.bg }};color:{{ c.color }};border:1px solid #17242B;border-radius:2px;font-size:14px;cursor:pointer">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#53616A;flex:0 1 300px">Search insights
+          <input type="search" value="{{ insightQuery }}" onChange="{{ onInsightQuery }}" style="min-height:44px;padding:0 14px;border:1px solid rgba(23,36,43,0.35);border-radius:2px;background:#FFFFFF;font-size:15px;color:#29343A">
+        </label>
+      </div>
+      <sc-if value="{{ hasFeatured }}" hint-placeholder-val="{{ false }}">
+        <article style="display:flex;flex-wrap:wrap;gap:32px 64px;padding:32px 0 48px;border-top:1px solid #17242B;border-bottom:1px solid rgba(23,36,43,0.14)">
+          <div style="flex:1.2 1 420px;min-width:0;aspect-ratio:16/10;overflow:hidden;background:#E8E5DC"><img src="{{ featured.image }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+          <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:16px;justify-content:center">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#6E5A36">FEATURED · {{ featured.catUpper }} · {{ featured.date }}</span>
+            <h2 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.12;letter-spacing:-0.02em;color:#17242B"><a href="{{ featured.href }}" style="color:#17242B;text-decoration:none" style-hover="text-decoration:underline">{{ featured.title }}</a></h2>
+            <p style="margin:0;font-size:16px;line-height:1.65;color:#3A464C;max-width:52ch">{{ featured.excerpt }}</p>
+            <a href="{{ featured.href }}" style="font-size:15px;font-weight:500;color:#17242B;min-height:44px;display:inline-flex;align-items:center">Read the Insight →</a>
+          </div>
+        </article>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:0 32px">
+        <sc-for list="{{ insightRest }}" as="i" hint-placeholder-count="2">
+          <article style="padding:28px 0;border-bottom:1px solid rgba(23,36,43,0.14);display:flex;flex-direction:column;gap:12px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#6E5A36">{{ i.catUpper }} · {{ i.date }}</span>
+            <h3 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:22px;line-height:1.25;color:#17242B"><a href="{{ i.href }}" style="color:#17242B;text-decoration:none" style-hover="text-decoration:underline">{{ i.title }}</a></h3>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#53616A">{{ i.excerpt }}</p>
+          </article>
+        </sc-for>
+      </div>
+      <sc-if value="{{ noFilteredInsights }}" hint-placeholder-val="{{ false }}"><p style="padding:32px 0;margin:0;font-size:16px;color:#3A464C">No articles match that search. <button type="button" onClick="{{ clearInsightFilters }}" style="background:transparent;border:0;padding:0;font-size:16px;color:#17242B;text-decoration:underline;cursor:pointer;min-height:44px">Clear filters</button></p></sc-if>
+      <sc-if value="{{ canLoadMore }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ loadMore }}" style="margin-top:32px;min-height:48px;padding:0 24px;border:1px solid #17242B;background:transparent;border-radius:2px;font-size:15px;cursor:pointer">Load more</button></sc-if>
+    </section>
+  </sc-if>
+  <sc-if value="{{ noInsights }}" hint-placeholder-val="{{ true }}">
+    <section aria-labelledby="ins-empty-h" style="max-width:1360px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,48px) clamp(72px,9vw,120px);display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,96px)">
+      <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:18px">
+        <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#53616A">NO. 00 — FORTHCOMING</span>
+        <h2 id="ins-empty-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:-0.02em;color:#17242B;text-wrap:balance">Articles will be published here.</h2>
+        <p style="margin:0;font-size:16px;line-height:1.7;color:#3A464C;max-width:52ch">In the meantime, our services and approach pages describe how we think about strategy, operations, and process.</p>
+      </div>
+      <nav aria-label="Related pages" style="flex:1 1 320px;min-width:0;border-top:1px solid #17242B">
+        <a href="#/services" style="display:flex;justify-content:space-between;align-items:center;min-height:64px;border-bottom:1px solid rgba(23,36,43,0.14);color:#17242B;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:500">Services <span aria-hidden="true">→</span></a>
+        <a href="#/approach" style="display:flex;justify-content:space-between;align-items:center;min-height:64px;border-bottom:1px solid rgba(23,36,43,0.14);color:#17242B;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:500">Our Approach <span aria-hidden="true">→</span></a>
+        <a href="#/contact" style="display:flex;justify-content:space-between;align-items:center;min-height:64px;border-bottom:1px solid rgba(23,36,43,0.14);color:#17242B;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:500">Request a Consultation <span aria-hidden="true">→</span></a>
+      </nav>
+    </section>
+  </sc-if>
+</sc-if>
+
+<!-- ============ ARTICLE ============ -->
+<sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+  <article data-screen-label="Article" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) clamp(64px,8vw,104px)">
+    <sc-if value="{{ articleFound }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ templatePreview }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 24px;padding:10px 14px;border:1px dashed #A88D5D;font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36">TEMPLATE PREVIEW — sample text, not a company publication.</p></sc-if>
+      <header style="max-width:860px;display:flex;flex-direction:column;gap:20px">
+        <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#6E5A36">{{ article.catUpper }}</span>
+        <h1 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(36px,4.8vw,60px);line-height:1.06;letter-spacing:-0.03em;color:#17242B;text-wrap:balance">{{ article.title }}</h1>
+        <p style="margin:0;font-family:'DM Sans',sans-serif;font-style:italic;font-size:21px;line-height:1.5;color:#243943">{{ article.excerpt }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px 24px;padding:16px 0;border-top:1px solid rgba(23,36,43,0.14);border-bottom:1px solid rgba(23,36,43,0.14);font-size:14px;color:#53616A">
+          <span>{{ article.author }}</span><span>Published {{ article.date }}</span>
+        </div>
+      </header>
+      <div style="margin-top:40px;aspect-ratio:21/9;overflow:hidden;background:#E8E5DC"><img src="{{ article.image }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:48px clamp(40px,6vw,96px);margin-top:48px">
+        <div style="flex:2 1 520px;min-width:0;max-width:68ch;display:flex;flex-direction:column;gap:22px">
+          <sc-for list="{{ article.blocks }}" as="b" hint-placeholder-count="4">
+            <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><h2 style="margin:16px 0 0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:28px;letter-spacing:-0.015em;color:#17242B">{{ b.text }}</h2></sc-if>
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:18px;line-height:1.75;color:#29343A;text-wrap:pretty">{{ b.text }}</p></sc-if>
+          </sc-for>
+        </div>
+        <aside style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:16px;align-self:flex-start;border-top:1px solid #17242B;padding-top:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#53616A">RELATED SERVICE</span>
+          <a href="{{ article.serviceHref }}" style="font-family:'DM Sans',sans-serif;font-size:22px;font-weight:500;color:#17242B">{{ article.serviceTitle }} →</a>
+          <a href="{{ article.contactHref }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#243943;color:#FFFFFF">Request a Consultation</a>
+        </aside>
+      </div>
+    </sc-if>
+    <sc-if value="{{ articleMissing }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0 0 16px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:40px;color:#17242B">This article isn't available.</h1>
+      <a href="#/insights" style="font-size:16px">Return to Insights</a>
+    </sc-if>
+  </article>
+</sc-if>
+
+<!-- ============ CONTACT ============ -->
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Contact" aria-labelledby="contact-h1" style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) clamp(72px,9vw,120px);display:flex;flex-wrap:wrap;gap:48px clamp(40px,6vw,96px);align-items:flex-start">
+    <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:28px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#6E5A36">REQUEST A CONSULTATION</span>
+      <h1 id="contact-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(38px,4.6vw,58px);line-height:1.05;letter-spacing:-0.03em;color:#17242B;text-wrap:balance">Tell us what your business is working through.</h1>
+      <p style="margin:0;font-size:17px;line-height:1.65;color:#3A464C;max-width:50ch">Share a little about your business and the challenge you would like to discuss. We'll use this information to understand your enquiry and determine an appropriate next step.</p>
+      <ol style="list-style:none;margin:0;padding:0;border-top:1px solid #17242B">
+        <sc-for list="{{ nextSteps }}" as="n" hint-placeholder-count="3">
+          <li style="display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:16px 0;border-bottom:1px solid rgba(23,36,43,0.14);font-size:15px;line-height:1.55;color:#29343A"><span style="font-family:'DM Mono',monospace;font-size:12px;color:#6E5A36;padding-top:2px">{{ n.num }}</span><span>{{ n.text }}</span></li>
+        </sc-for>
+      </ol>
+      <dl style="margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 24px;font-size:15px">
+        <dt style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#53616A;padding-top:2px">CONTACT</dt><dd style="margin:0;color:#29343A">Weston Pierce</dd>
+        <dt style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#53616A;padding-top:2px">EMAIL</dt><dd style="margin:0;overflow-wrap:anywhere"><a href="{{ mailHref }}">{{ email }}</a></dd>
+        <dt style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#53616A;padding-top:2px">PHONE</dt><dd style="margin:0"><a href="{{ telHref }}">{{ phone }}</a></dd>
+        <sc-if value="{{ showAddress }}" hint-placeholder-val="{{ false }}"><dt style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#53616A;padding-top:2px">OFFICE</dt><dd style="margin:0;color:#29343A">{{ address }}</dd></sc-if>
+      </dl>
+    </div>
+
+    <div style="flex:1.2 1 460px;min-width:0;background:#FFFFFF;border:1px solid rgba(23,36,43,0.16);padding:clamp(24px,3.5vw,48px)">
+      <div aria-live="polite" role="status" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">{{ liveMsg }}</div>
+      <sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <sc-if value="{{ successWasPreview }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:10px 14px;border:1px dashed #A88D5D;font-family:'DM Mono',monospace;font-size:12px;line-height:1.5;color:#6E5A36">PREVIEW MODE — this request was saved in this browser only and was not sent to Pierce Consulting Group. Connect the consultation endpoint before publishing.</p></sc-if>
+          <span aria-hidden="true" style="width:44px;height:44px;border:1px solid #276749;color:#276749;display:flex;align-items:center;justify-content:center;font-size:18px">✓</span>
+          <h2 id="success-h" tabindex="-1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(26px,2.6vw,32px);line-height:1.2;letter-spacing:-0.015em;color:#17242B;outline:none">Thank you for contacting Pierce Consulting Group. Your consultation request has been received.</h2>
+          <p style="margin:0;font-size:16px;line-height:1.65;color:#3A464C">We'll review the details you shared and reply using your preferred contact method. No meeting has been scheduled yet.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <a href="#/" style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;background:#17242B;color:#FFFFFF;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:#243943;color:#FFFFFF">Return to Home</a>
+            <a href="#/services" style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1px solid #17242B;color:#17242B;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px">Review Our Services</a>
+            <button type="button" onClick="{{ newEnquiry }}" style="min-height:48px;padding:0 4px;background:transparent;border:0;font-size:15px;color:#17242B;text-decoration:underline;cursor:pointer">Send another enquiry</button>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submit }}" noValidate="{{ true }}" aria-labelledby="form-h" style="display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+            <h2 id="form-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:24px;color:#17242B">Consultation request</h2>
+            <span style="font-size:13px;color:#53616A">* Required</span>
+          </div>
+          <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" style="padding:16px 18px;border:1px solid #B42318;background:#FEF6F5;display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:15px;color:#7A1A12">We couldn't send your request.</strong>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:#29343A">Your details are still here. Please try again, or email <a href="{{ mailHref }}" style="overflow-wrap:anywhere">{{ email }}</a> directly.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasErrorSummary }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;padding:12px 16px;border-left:0;border:1px solid #B42318;font-size:14px;color:#7A1A12">{{ errorSummary }}</p>
+          </sc-if>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:22px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-name" style="font-size:14px;font-weight:500;color:#17242B">Full name *</label>
+              <input id="f-name" name="name" type="text" autoComplete="name" required="" maxLength="120" value="{{ f.name.value }}" onChange="{{ f.name.onChange }}" onBlur="{{ f.name.onBlur }}" aria-invalid="{{ f.name.invalid }}" aria-describedby="{{ f.name.describedBy }}" style="min-height:48px;padding:0 14px;border:1px solid {{ f.name.border }};border-radius:2px;background:#FFFFFF;font-size:16px;color:#29343A">
+              <sc-if value="{{ f.name.hasError }}" hint-placeholder-val="{{ false }}"><p id="f-name-err" style="margin:0;font-size:13px;color:#B42318;display:flex;gap:6px"><span aria-hidden="true">!</span>{{ f.name.error }}</p></sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-email" style="font-size:14px;font-weight:500;color:#17242B">Business email *</label>
+              <input id="f-email" name="email" type="email" autoComplete="email" inputMode="email" required="" maxLength="254" value="{{ f.email.value }}" onChange="{{ f.email.onChange }}" onBlur="{{ f.email.onBlur }}" aria-invalid="{{ f.email.invalid }}" aria-describedby="{{ f.email.describedBy }}" style="min-height:48px;padding:0 14px;border:1px solid {{ f.email.border }};border-radius:2px;background:#FFFFFF;font-size:16px;color:#29343A">
+              <sc-if value="{{ f.email.hasError }}" hint-placeholder-val="{{ false }}"><p id="f-email-err" style="margin:0;font-size:13px;color:#B42318;display:flex;gap:6px"><span aria-hidden="true">!</span>{{ f.email.error }}</p></sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-company" style="font-size:14px;font-weight:500;color:#17242B">Company name *</label>
+              <input id="f-company" name="company" type="text" autoComplete="organization" required="" maxLength="160" value="{{ f.company.value }}" onChange="{{ f.company.onChange }}" onBlur="{{ f.company.onBlur }}" aria-invalid="{{ f.company.invalid }}" aria-describedby="{{ f.company.describedBy }}" style="min-height:48px;padding:0 14px;border:1px solid {{ f.company.border }};border-radius:2px;background:#FFFFFF;font-size:16px;color:#29343A">
+              <sc-if value="{{ f.company.hasError }}" hint-placeholder-val="{{ false }}"><p id="f-company-err" style="margin:0;font-size:13px;color:#B42318;display:flex;gap:6px"><span aria-hidden="true">!</span>{{ f.company.error }}</p></sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-phone" style="font-size:14px;font-weight:500;color:#17242B">Phone number <span style="font-weight:400;color:#53616A">(optional)</span></label>
+              <input id="f-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength="40" value="{{ f.phone.value }}" onChange="{{ f.phone.onChange }}" onBlur="{{ f.phone.onBlur }}" aria-invalid="{{ f.phone.invalid }}" aria-describedby="{{ f.phone.describedBy }}" style="min-height:48px;padding:0 14px;border:1px solid {{ f.phone.border }};border-radius:2px;background:#FFFFFF;font-size:16px;color:#29343A">
+              <sc-if value="{{ f.phone.hasError }}" hint-placeholder-val="{{ false }}"><p id="f-phone-err" style="margin:0;font-size:13px;color:#B42318;display:flex;gap:6px"><span aria-hidden="true">!</span>{{ f.phone.error }}</p></sc-if>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label for="f-service" style="font-size:14px;font-weight:500;color:#17242B">Service interest *</label>
+            <select id="f-service" name="service" required="" value="{{ f.service.value }}" onChange="{{ f.service.onChange }}" onBlur="{{ f.service.onBlur }}" aria-invalid="{{ f.service.invalid }}" aria-describedby="{{ f.service.describedBy }}" style="min-height:48px;padding:0 14px;border:1px solid {{ f.service.border }};border-radius:2px;background:#FFFFFF;font-size:16px;color:#29343A">
+              <option value="">Select a service</option>
+              <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+            </select>
+            <p id="f-service-help" style="margin:0;font-size:13px;color:#53616A">Choose “Other / Not sure yet” if you'd prefer to talk it through.</p>
+            <sc-if value="{{ f.service.hasError }}" hint-placeholder-val="{{ false }}"><p id="f-service-err" style="margin:0;font-size:13px;color:#B42318;display:flex;gap:6px"><span aria-hidden="true">!</span>{{ f.service.error }}</p></sc-if>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label for="f-challenge" style="font-size:14px;font-weight:500;color:#17242B">Business challenge *</label>
+            <textarea id="f-challenge" name="challenge" rows="6" required="" maxLength="4000" value="{{ f.challenge.value }}" onChange="{{ f.challenge.onChange }}" onBlur="{{ f.challenge.onBlur }}" aria-invalid="{{ f.challenge.invalid }}" aria-describedby="{{ f.challenge.describedBy }}" style="padding:12px 14px;border:1px solid {{ f.challenge.border }};border-radius:2px;background:#FFFFFF;font-size:16px;line-height:1.55;color:#29343A;resize:vertical;min-height:150px"></textarea>
+            <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px;color:#53616A"><span id="f-challenge-help">A few sentences on the situation and what you'd like to achieve.</span><span aria-hidden="true">{{ challengeCount }}</span></div>
+            <sc-if value="{{ f.challenge.hasError }}" hint-placeholder-val="{{ false }}"><p id="f-challenge-err" style="margin:0;font-size:13px;color:#B42318;display:flex;gap:6px"><span aria-hidden="true">!</span>{{ f.challenge.error }}</p></sc-if>
+          </div>
+
+          <fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:10px">
+            <legend style="font-size:14px;font-weight:500;color:#17242B;margin-bottom:10px;padding:0">Preferred contact method <span style="font-weight:400;color:#53616A">(optional)</span></legend>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ contactMethods }}" as="m" hint-placeholder-count="2">
+                <label style="display:flex;align-items:center;gap:10px;min-height:48px;padding:0 18px;border:1px solid {{ m.border }};border-radius:2px;cursor:pointer;font-size:15px;background:{{ m.bg }}">
+                  <input type="radio" name="contactMethod" value="{{ m.value }}" checked="{{ m.checked }}" onChange="{{ m.onChange }}" style="width:18px;height:18px;accent-color:#17242B;margin:0">{{ m.label }}
+                </label>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+            <label for="f-website">Website</label>
+            <input id="f-website" name="website" type="text" tabIndex="-1" autoComplete="off" value="{{ f.website.value }}" onChange="{{ f.website.onChange }}">
+          </div>
+
+          <p style="margin:0;font-size:13px;line-height:1.6;color:#53616A">We use these details only to respond to your enquiry. See our <a href="#/privacy">Privacy Policy</a>.</p>
+
+          <button type="submit" disabled="{{ submitting }}" aria-disabled="{{ submittingStr }}" style="min-height:54px;padding:0 28px;background:{{ submitBg }};color:#FFFFFF;border:0;border-radius:2px;font-size:16px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:12px;transition:background 180ms ease">{{ submitLabel }}</button>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ============ PRIVACY ============ -->
+<sc-if value="{{ isPrivacy }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Privacy" aria-labelledby="priv-h1" style="max-width:860px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) clamp(72px,9vw,120px);display:flex;flex-direction:column;gap:22px">
+    <h1 id="priv-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(36px,4.4vw,52px);letter-spacing:-0.03em;color:#17242B">Privacy Policy</h1>
+    <p style="margin:0;font-size:17px;line-height:1.7;color:#3A464C">Our full privacy policy is being finalized and will be published on this page. Information submitted through the consultation form is used to respond to your enquiry.</p>
+    <p style="margin:0;font-size:17px;line-height:1.7;color:#3A464C">For any question about how your information is handled, contact <a href="{{ mailHref }}" style="overflow-wrap:anywhere">{{ email }}</a>.</p>
+  </section>
+</sc-if>
+
+<!-- ============ ADMIN ============ -->
+<sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Admin — Enquiries" aria-labelledby="adm-h1" style="max-width:1360px;margin:0 auto;padding:40px clamp(20px,4vw,48px) 96px">
+    <sc-if value="{{ adminLocked }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:480px;margin:40px auto;background:#FFFFFF;border:1px solid rgba(23,36,43,0.16);padding:40px;display:flex;flex-direction:column;gap:18px">
+        <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#53616A">STAFF ONLY</span>
+        <h1 id="adm-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:30px;color:#17242B">Enquiry management</h1>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#3A464C">In production this route must sit behind server-side authentication and role-based authorization. This preview gate is not a security control.</p>
+        <button type="button" onClick="{{ adminSignIn }}" style="min-height:50px;background:#17242B;color:#FFFFFF;border:0;border-radius:2px;font-size:15px;font-weight:500;cursor:pointer">Continue in preview</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ adminOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:20px;border-bottom:1px solid #17242B">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#53616A">ADMIN · LOCAL PREVIEW DATA</span>
+          <h1 id="adm-h1" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(28px,3vw,38px);letter-spacing:-0.02em;color:#17242B">Consultation enquiries</h1>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#53616A">Search
+            <input type="search" value="{{ adminQuery }}" onChange="{{ onAdminQuery }}" style="min-height:44px;padding:0 12px;border:1px solid rgba(23,36,43,0.35);border-radius:2px;font-size:15px;min-width:220px">
+          </label>
+          <button type="button" onClick="{{ adminSignOut }}" style="min-height:44px;padding:0 16px;background:transparent;border:1px solid rgba(23,36,43,0.35);border-radius:2px;font-size:14px;cursor:pointer">Sign out</button>
+        </div>
+      </div>
+      <div role="group" aria-label="Filter by status" style="display:flex;flex-wrap:wrap;gap:8px;padding:16px 0">
+        <sc-for list="{{ adminFilters }}" as="fl" hint-placeholder-count="5">
+          <button type="button" onClick="{{ fl.onClick }}" aria-pressed="{{ fl.pressed }}" style="min-height:40px;padding:0 14px;background:{{ fl.bg }};color:{{ fl.color }};border:1px solid #17242B;border-radius:2px;font-size:13px;cursor:pointer">{{ fl.label }} · {{ fl.count }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+        <div style="flex:1.4 1 480px;min-width:0;background:#FFFFFF;border:1px solid rgba(23,36,43,0.16)">
+          <sc-if value="{{ adminEmpty }}" hint-placeholder-val="{{ true }}"><p style="margin:0;padding:32px;font-size:15px;color:#53616A">No enquiries match. Preview submissions from the contact page appear here.</p></sc-if>
+          <sc-for list="{{ adminRows }}" as="r" hint-placeholder-count="0">
+            <button type="button" onClick="{{ r.onClick }}" aria-pressed="{{ r.pressed }}" style="width:100%;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:16px 20px;border:0;border-bottom:1px solid rgba(23,36,43,0.1);background:{{ r.bg }};text-align:left;cursor:pointer;font-size:14px;color:#29343A">
+              <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><strong style="font-weight:500;color:#17242B;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</strong><span style="color:#53616A;overflow:hidden;text-overflow:ellipsis">{{ r.company }}</span></span>
+              <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span>{{ r.service }}</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:#53616A">{{ r.when }}</span></span>
+              <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;padding:5px 8px;border:1px solid #17242B;color:#17242B">{{ r.status }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <aside style="flex:1 1 340px;min-width:0;background:#FFFFFF;border:1px solid rgba(23,36,43,0.16);padding:24px;display:flex;flex-direction:column;gap:16px">
+          <sc-if value="{{ noAdminSel }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:15px;color:#53616A">Select an enquiry to view details.</p></sc-if>
+          <sc-if value="{{ hasAdminSel }}" hint-placeholder-val="{{ false }}">
+            <h2 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:24px;color:#17242B">{{ sel.name }}</h2>
+            <dl style="margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 16px;font-size:14px">
+              <dt style="color:#53616A">Company</dt><dd style="margin:0">{{ sel.company }}</dd>
+              <dt style="color:#53616A">Email</dt><dd style="margin:0;overflow-wrap:anywhere"><a href="{{ sel.mailHref }}">{{ sel.email }}</a></dd>
+              <dt style="color:#53616A">Phone</dt><dd style="margin:0">{{ sel.phone }}</dd>
+              <dt style="color:#53616A">Service</dt><dd style="margin:0">{{ sel.service }}</dd>
+              <dt style="color:#53616A">Prefers</dt><dd style="margin:0">{{ sel.contact }}</dd>
+              <dt style="color:#53616A">Submitted</dt><dd style="margin:0">{{ sel.when }}</dd>
+              <dt style="color:#53616A">Updated</dt><dd style="margin:0">{{ sel.updated }}</dd>
+            </dl>
+            <div style="padding:14px;background:#F7F5EF;font-size:15px;line-height:1.6;color:#29343A;white-space:pre-wrap">{{ sel.challenge }}</div>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500;color:#17242B">Status
+              <select value="{{ sel.statusVal }}" onChange="{{ onSelStatus }}" style="min-height:44px;padding:0 12px;border:1px solid rgba(23,36,43,0.35);border-radius:2px;font-size:15px;background:#FFFFFF">
+                <option value="new">New</option><option value="review">In Review</option><option value="contacted">Contacted</option><option value="closed">Closed</option>
+              </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500;color:#17242B">Internal notes
+              <textarea rows="4" value="{{ sel.notes }}" onChange="{{ onSelNotes }}" style="padding:10px 12px;border:1px solid rgba(23,36,43,0.35);border-radius:2px;font-size:15px;resize:vertical"></textarea>
+            </label>
+          </sc-if>
+        </aside>
+      </div>
+    </sc-if>
+  </section>
+</sc-if>
+
+<sc-if value="{{ showClosingCta }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Closing CTA" aria-labelledby="close-h" style="position:relative;background:#C9B07F;color:#17242B;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(23,36,43,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(23,36,43,0.08) 1px,transparent 1px);background-size:64px 64px"></div>
+    <div style="position:relative;max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(88px,11vw,160px);padding-bottom:clamp(88px,11vw,160px);display:flex;flex-direction:column;gap:40px">
+      <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#17242B">START A CONVERSATION</span>
+      <h2 id="close-h" style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(44px,7.4vw,116px);line-height:0.95;letter-spacing:-0.045em;max-width:13ch;text-wrap:balance">Let's clarify your next business move.</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:28px 64px;align-items:center;justify-content:space-between;border-top:1px solid #17242B;padding-top:32px">
+        <p style="margin:0;font-size:18px;line-height:1.6;max-width:50ch">Tell us what your business is working through, and start a conversation about possible next steps.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="#/contact" style="display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:0 28px;background:#17242B;color:#F7F5EF;font-size:16px;font-weight:600;text-decoration:none;border-radius:2px;transition:gap 180ms ease" style-hover="gap:20px;color:#FFFFFF">Request a Consultation <span aria-hidden="true">→</span></a>
+          <a href="#/team" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;border:1px solid #17242B;color:#17242B;font-size:16px;font-weight:500;text-decoration:none;border-radius:2px" style-hover="background:rgba(23,36,43,0.08);color:#17242B">Contact the Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+</main>
+
+<footer style="position:relative;background:#111B20;color:#F7F5EF;overflow:hidden">
+  <div style="position:relative;max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px);padding-top:clamp(64px,8vw,104px);padding-bottom:32px">
+    <div style="display:flex;flex-wrap:wrap;gap:40px clamp(32px,5vw,72px)">
+      <div style="flex:1.4 1 300px;min-width:0;display:flex;flex-direction:column;gap:20px">
+        <p style="margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(24px,2.4vw,32px);line-height:1.2;letter-spacing:-0.02em;max-width:22ch">Business consulting for strategy, operations, and process clarity.</p>
+        <a href="#/contact" style="display:inline-flex;align-items:center;gap:12px;min-height:50px;padding:0 22px;background:#C9B07F;color:#17242B;font-size:15px;font-weight:600;text-decoration:none;border-radius:2px;align-self:flex-start" style-hover="background:#F7F5EF;color:#17242B">Request a Consultation <span aria-hidden="true">→</span></a>
+      </div>
+      <nav aria-label="Footer" style="flex:1 1 160px;display:flex;flex-direction:column;gap:2px">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#C9B07F;margin-bottom:10px">PAGES</span>
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="6"><a href="{{ item.href }}" style="font-size:15px;color:#C3CBCF;text-decoration:none;min-height:36px;display:flex;align-items:center" style-hover="color:#FFFFFF;text-decoration:underline">{{ item.label }}</a></sc-for>
+      </nav>
+      <div style="flex:1 1 200px;display:flex;flex-direction:column;gap:2px">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#C9B07F;margin-bottom:10px">SERVICES</span>
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="3"><a href="{{ s.href }}" style="font-size:15px;color:#C3CBCF;text-decoration:none;min-height:36px;display:flex;align-items:center" style-hover="color:#FFFFFF;text-decoration:underline">{{ s.title }}</a></sc-for>
+      </div>
+      <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#C9B07F;margin-bottom:4px">CONTACT</span>
+        <a href="{{ mailHref }}" style="font-size:15px;color:#F7F5EF;overflow-wrap:anywhere">{{ email }}</a>
+        <a href="{{ telHref }}" style="font-size:15px;color:#F7F5EF">{{ phone }}</a>
+        <sc-if value="{{ showAddress }}" hint-placeholder-val="{{ false }}"><address style="font-style:normal;font-size:15px;line-height:1.5;color:#C3CBCF">{{ address }}</address></sc-if>
+      </div>
+    </div>
+    <div aria-hidden="true" style="margin-top:72px;font-family:'DM Sans',sans-serif;font-weight:500;font-weight:600;font-size:clamp(72px,19vw,300px);line-height:0.8;letter-spacing:0.02em;color:transparent;-webkit-text-stroke:1px rgba(247,245,239,0.18);white-space:nowrap;overflow:hidden">PIERCE</div>
+    <div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(247,245,239,0.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:#AEB8BD">
+      <span>© {{ year }} Pierce Consulting Group. All rights reserved.</span>
+      <a href="#/privacy" style="color:#C3CBCF">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;submissionMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;preview&quot;,&quot;preview-failure&quot;,&quot;endpoint&quot;],&quot;default&quot;:&quot;preview&quot;,&quot;tsType&quot;:&quot;'preview'|'preview-failure'|'endpoint'&quot;,&quot;section&quot;:&quot;Consultation form&quot;},&quot;endpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/consultations&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Consultation form&quot;},&quot;templatePreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showAddress&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;heroRotate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  EMAIL = 'weston.pierce@pierceconsulting.com';
+  PHONE = '+1 (215) 682-2917';
+  ADDRESS = '1 City Hall Plaza, Boston, MA 52201';
+  SERVICES = [
+    { id: 'strategy', num: '01', title: 'Business Strategy', status: 'published', purpose: 'Clarify business direction and the priorities that should shape it.', body: 'For leadership teams weighing where to focus next. We work through objectives, competing priorities, and the decisions in front of you, so that direction is explicit and shared across the business.', focus: ['Objective setting', 'Strategic alignment', 'Decision frameworks', 'Prioritization'] },
+    { id: 'operations', num: '02', title: 'Operational Improvement', status: 'published', purpose: 'Explore operational challenges and where execution could improve.', body: 'For organizations where work is slower, costlier, or harder to coordinate than it should be. We look at how work actually moves, where it stalls, and which changes are practical to make.', focus: ['Workflow analysis', 'Operational bottlenecks', 'Resource coordination', 'Process efficiency'] },
+    { id: 'process', num: '03', title: 'Process Consulting', status: 'published', purpose: 'Review processes and identify opportunities for greater clarity and consistency.', body: 'For teams whose processes have grown by accumulation rather than design. We map the current state, examine handoffs, and plan improvements the team can sustain.', focus: ['Process mapping', 'Workflow assessment', 'Handoffs', 'Improvement planning'] },
+    { id: 'growth', num: '04', title: 'Growth Planning', status: 'awaiting-confirmation', focus: [] }
+  ];
+  CHALLENGES = [
+    { title: 'Unclear strategic priorities', svc: 'strategy', desc: 'Several initiatives compete for attention, and it is not obvious which deserve the organization\u2019s time, people, and budget.' },
+    { title: 'Operational bottlenecks', svc: 'operations', desc: 'Work regularly queues at the same points, and delays in one area ripple into others.' },
+    { title: 'Inconsistent or complicated workflows', svc: 'process', desc: 'The same task is done differently by different people, or passes through more steps and approvals than it needs.' },
+    { title: 'Turning objectives into practical action', svc: 'strategy', desc: 'Goals are agreed at leadership level, but translating them into specific, owned actions has proven difficult.' },
+    { title: 'Uncertainty about the next stage of planning', svc: 'strategy', desc: 'The business is approaching a new stage, and leadership wants a clearer basis for planning it.' }
+  ];
+  STAGES = [
+    { num: '01', title: 'Initial Conversation', short: 'Understand the business context and the challenge.', points: ['Understand the context, objectives, and main concern.', 'Clarify whether our services may be relevant.'] },
+    { num: '02', title: 'Discovery', short: 'Clarify priorities, objectives, and relevant constraints.', points: ['Explore the current situation, constraints, and desired direction.', 'Identify the information needed for a useful assessment.'] },
+    { num: '03', title: 'Recommendations', short: 'Discuss potential approaches and practical next steps.', points: ['Discuss potential options, priorities, and improvement opportunities within the agreed scope.'] },
+    { num: '04', title: 'Engagement Planning', short: 'Agree on scope, responsibilities, and the next stage of work.', points: ['Clarify proposed scope, deliverables, responsibilities, and next steps.'] }
+  ];
+  FAQS = [
+    { q: 'What happens during an initial consultation?', a: 'It is a conversation about your business, the challenge you would like to discuss, and what you hope to achieve. It helps both sides understand whether our services are relevant and what a sensible next step would be.' },
+    { q: 'Which business challenges can I discuss?', a: 'Questions of strategic direction, operational performance, and process design are the focus of our services. If you are unsure whether your situation fits, describe it in the form and select \u201cOther / Not sure yet.\u201d' },
+    { q: 'How is the scope of a consulting engagement determined?', a: 'Scope is agreed with you, based on what is learned during the initial conversation and discovery. Deliverables, responsibilities, and commercial terms are discussed individually for each engagement.' },
+    { q: 'What information should I prepare?', a: 'A short description of the situation, what you have already tried, and what a good outcome would look like is enough to begin. Please avoid sending confidential documents through the form.' },
+    { q: 'Does every enquiry lead to an engagement?', a: 'No. Some conversations conclude that another kind of support would be more appropriate, or that no engagement is needed. Either way, we aim to be clear about it.' }
+  ];
+  SAMPLE_INSIGHTS = [
+    { slug: 'framing-the-problem', cat: 'Strategy', svc: 'strategy', image: 'assets/desk-planner.png', title: 'Framing the problem before choosing a solution', excerpt: 'Sample excerpt: why a precise problem statement tends to save more time than a fast answer.' },
+    { slug: 'where-work-waits', cat: 'Operations', svc: 'operations', image: 'assets/team-documents.png', title: 'Where work waits: looking for the queue', excerpt: 'Sample excerpt: a simple way to notice where operational delays accumulate.' },
+    { slug: 'handoffs', cat: 'Process', svc: 'process', image: 'assets/process-mapping.png', title: 'The handoff is the process', excerpt: 'Sample excerpt: why the points between teams deserve as much attention as the steps within them.' }
+  ];
+
+  HERO_FOCUS = [
+    { tab: 'Direction', num: '01', svc: 'strategy', questions: ['Which priorities deserve resources now?', 'Which decision is being deferred, and why?', 'How will progress be judged?'] },
+    { tab: 'Execution', num: '02', svc: 'operations', questions: ['Where does work wait the longest?', 'Which constraints are structural, and which are habits?', 'What would be practical to change first?'] },
+    { tab: 'Process', num: '03', svc: 'process', questions: ['Where do handoffs break down?', 'Which steps add review but not value?', 'What would a deliberately designed process look like?'] }
+  ];
+  MATRIX = [
+    { id: 'A', x: 24, y: 22, note: 'Higher impact, lower effort \u2014 a natural candidate to prioritize.' },
+    { id: 'B', x: 72, y: 28, note: 'Higher impact, higher effort \u2014 worth planning deliberately.' },
+    { id: 'C', x: 30, y: 70, note: 'Lower impact, lower effort \u2014 useful if capacity allows.' },
+    { id: 'D', x: 76, y: 76, note: 'Lower impact, higher effort \u2014 question whether to pursue it.' },
+    { id: 'E', x: 46, y: 42, note: 'Close to the middle \u2014 needs a clearer view of its value before deciding.' }
+  ];
+  OPS = [
+    { code: 'A', label: 'Intake', note: 'Where requests enter. Are they complete and clear enough to act on?' },
+    { code: 'B', label: 'Coordination', note: 'Where work changes hands. Does it wait for decisions or information?' },
+    { code: 'C', label: 'Delivery', note: 'Where the work is done. Are people and resources matched to demand?' },
+    { code: 'D', label: 'Review', note: 'Where quality is checked. Does review regularly trigger rework?' }
+  ];
+  IND_AREAS = [
+    { label: 'Market & customers', qs: ['How is demand changing in your sector?', 'Which customer expectations are hardest to meet?', 'Where are competitors setting the pace?'] },
+    { label: 'Operations', qs: ['Which sector-specific constraints shape how work is delivered?', 'Where does capacity fall short of demand?', 'Which costs are hardest to control?'] },
+    { label: 'People & structure', qs: ['How are decisions made, and by whom?', 'Where do responsibilities overlap or fall between roles?', 'What does leadership need to see more clearly?'] },
+    { label: 'Process', qs: ['Which steps are fixed by regulation or industry practice?', 'Which steps have simply accumulated over time?', 'Where does the process differ from team to team?'] }
+  ];
+  state = { route: this.parseRoute(), vw: typeof window !== 'undefined' ? window.innerWidth : 1280, scrolled: false, menuOpen: false, heroIdx: 0, heroPaused: false, heroHover: false, reduced: false, challenge: 0, faq: -1,
+    form: { name: '', email: '', company: '', phone: '', service: '', challenge: '', contact: '', website: '' }, touched: {}, errors: {}, status: 'idle', successPreview: false, liveMsg: '', errorSummary: '', requestId: null,
+    admin: false, adminFilter: 'all', adminQuery: '', adminSel: null, enquiries: [], insightCat: 'All', insightQuery: '', insightCount: 7, matrixSel: 'A', opsSel: 1, apStage: 0, indArea: 0, prinIdx: 0, homeStep: 0 };
+
+  parseRoute() {
+    const h = (typeof location !== 'undefined' ? location.hash : '') || '';
+    const [path, qs] = h.replace(/^#\/?/, '').split('?');
+    const parts = (path || '').split('/').filter(Boolean);
+    const params = {};
+    (qs || '').split('&').filter(Boolean).forEach(p => { const [k, v] = p.split('='); params[decodeURIComponent(k)] = decodeURIComponent(v || ''); });
+    return { page: parts[0] || 'home', sub: parts[1] || null, params };
+  }
+
+  componentDidMount() {
+    this._onHash = () => this.applyRoute(true);
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+    this._onScroll = () => { const s = window.scrollY > 24; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    this._onKey = e => { if (e.key === 'Escape' && this.state.menuOpen) this.closeMenu(); };
+    window.addEventListener('hashchange', this._onHash);
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('keydown', this._onKey);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.setState({ reduced: mq.matches });
+    mq.addEventListener && mq.addEventListener('change', e => this.setState({ reduced: e.matches }));
+    try {
+      const saved = sessionStorage.getItem('pcg-service');
+      if (saved) this.setState(s => ({ form: { ...s.form, service: saved } }));
+      this.setState({ enquiries: JSON.parse(localStorage.getItem('pcg-preview-enquiries') || '[]'), admin: sessionStorage.getItem('pcg-admin-preview') === '1' });
+    } catch (e) {}
+    this._timer = setInterval(() => { if (this.canRotate()) this.setState(s => ({ heroIdx: (s.heroIdx + 1) % 3 })); }, 7000);
+    this.applyRoute(false);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this._onHash); window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll); window.removeEventListener('keydown', this._onKey);
+    clearInterval(this._timer); this._io && this._io.disconnect();
+  }
+  canRotate() { return (this.props.heroRotate ?? true) && !this.state.reduced && !this.state.heroPaused && !this.state.heroHover && this.state.route.page === 'home' && !document.hidden; }
+
+  applyRoute(moved) {
+    const route = this.parseRoute();
+    const upd = { route, menuOpen: false };
+    if (route.page === 'contact' && route.params.service) {
+      const valid = this.serviceOptions().some(o => o.value === route.params.service);
+      if (valid) { upd.form = { ...this.state.form, service: route.params.service }; try { sessionStorage.setItem('pcg-service', route.params.service); } catch (e) {} }
+    }
+    if (route.page === 'contact' && this.state.status === 'success') upd.status = 'idle';
+    this.setState(upd, () => {
+      const titles = { home: 'Business Consulting', services: 'Services', industries: 'Industries', approach: 'Our Approach', team: 'Team', insights: 'Insights', contact: 'Request a Consultation', privacy: 'Privacy Policy', admin: 'Enquiries (Admin)' };
+      document.title = (route.page === 'home' ? 'Pierce Consulting Group — ' : (titles[route.page] || 'Page') + ' — Pierce Consulting Group') + (route.page === 'home' ? titles.home : '');
+      if (route.page === 'services' && route.sub) { setTimeout(() => this.scrollToId('svc-' + route.sub), 40); }
+      else if (moved) { window.scrollTo(0, 0); const m = document.getElementById('main'); m && m.focus({ preventScroll: true }); }
+      this.setupReveal();
+    });
+  }
+  scrollToId(id) {
+    const el = document.getElementById(id); if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 130;
+    window.scrollTo({ top: y, behavior: this.state.reduced ? 'auto' : 'smooth' });
+  }
+  setupReveal() {
+    if (this.state.reduced || !('IntersectionObserver' in window)) return;
+    this._io && this._io.disconnect();
+    this._io = new IntersectionObserver(entries => entries.forEach(en => { if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; this._io.unobserve(en.target); } }), { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      if (el.dataset.revealed) return; el.dataset.revealed = '1';
+      const r = el.getBoundingClientRect(); if (r.top < window.innerHeight) return;
+      el.style.opacity = '0'; el.style.transform = 'translateY(16px)'; el.style.transition = 'opacity 600ms ease, transform 600ms ease';
+      this._io.observe(el);
+    });
+  }
+
+  published() { return this.SERVICES.filter(s => s.status === 'published'); }
+  svc(id) { return this.SERVICES.find(s => s.id === id); }
+  serviceOptions() { return [...this.published().map(s => ({ value: s.id, label: s.title })), { value: 'other', label: 'Other / Not sure yet' }]; }
+
+  validate(form) {
+    const e = {}; const t = k => (form[k] || '').trim();
+    if (t('name').length < 2) e.name = 'Enter your full name.'; else if (t('name').length > 120) e.name = 'Use 120 characters or fewer.';
+    if (!t('email')) e.email = 'Enter your business email.'; else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(t('email')) || t('email').length > 254) e.email = 'Enter an email address in the format name@company.com.';
+    if (!t('company')) e.company = 'Enter your company name.';
+    if (t('phone') && !/^[+()\d\s.-]{7,40}$/.test(t('phone'))) e.phone = 'Use digits, spaces, and + ( ) - only.';
+    if (!form.service) e.service = 'Select a service, or choose \u201cOther / Not sure yet.\u201d';
+    const c = t('challenge');
+    if (!c) e.challenge = 'Describe the challenge you\u2019d like to discuss.'; else if (c.length < 20 || !/[a-zA-Z]{3,}/.test(c)) e.challenge = 'Add a little more detail (at least 20 characters).'; else if (c.length > 4000) e.challenge = 'Use 4,000 characters or fewer.';
+    return e;
+  }
+  setField(k, v) {
+    this.setState(s => {
+      const form = { ...s.form, [k]: v };
+      const errors = { ...s.errors };
+      if (s.touched[k]) { const ne = this.validate(form); if (ne[k]) errors[k] = ne[k]; else delete errors[k]; }
+      if (k === 'service') { try { sessionStorage.setItem('pcg-service', v); } catch (e) {} }
+      return { form, errors, status: s.status === 'error' ? 'error' : s.status };
+    });
+  }
+  blurField(k) {
+    this.setState(s => { const ne = this.validate(s.form); const errors = { ...s.errors }; if (ne[k]) errors[k] = ne[k]; else delete errors[k]; if (k === 'phone' && !s.form.phone) delete errors.phone; return { touched: { ...s.touched, [k]: true }, errors }; });
+  }
+  async submit(e) {
+    e && e.preventDefault();
+    if (this.state.status === 'submitting') return;
+    const f = this.state.form;
+    if (f.website) return;
+    const errors = this.validate(f);
+    const keys = Object.keys(errors);
+    if (keys.length) {
+      const order = ['name', 'email', 'company', 'phone', 'service', 'challenge'];
+      const first = order.find(k => errors[k]);
+      const touched = {}; order.forEach(k => touched[k] = true);
+      const msg = keys.length === 1 ? 'Please correct 1 field before sending.' : `Please correct ${keys.length} fields before sending.`;
+      this.setState({ errors, touched, errorSummary: msg, liveMsg: msg }, () => { const el = document.getElementById('f-' + first); el && el.focus(); });
+      return;
+    }
+    const requestId = this.state.requestId || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+    const payload = { clientRequestId: requestId, fullName: f.name.trim(), email: f.email.trim().toLowerCase(), company: f.company.trim(), phone: f.phone.trim() || null, serviceInterest: f.service, challenge: f.challenge.trim(), preferredContact: f.contact || null };
+    this.setState({ status: 'submitting', errorSummary: '', requestId, liveMsg: 'Sending your request\u2026' });
+    const mode = this.props.submissionMode ?? 'preview';
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    try {
+      if (mode === 'endpoint') {
+        const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 15000);
+        const res = await fetch(this.props.endpoint || '/api/consultations', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Idempotency-Key': requestId }, body: JSON.stringify(payload), signal: ctrl.signal });
+        clearTimeout(to);
+        if (!res.ok) throw new Error('rejected');
+        this.onSuccess(false);
+      } else if (mode === 'preview-failure') {
+        await wait(900); throw new Error('simulated');
+      } else {
+        await wait(900);
+        const now = new Date().toISOString();
+        const rec = { id: requestId, ...payload, status: 'new', notes: '', createdAt: now, updatedAt: now };
+        const list = [rec, ...this.state.enquiries.filter(x => x.id !== requestId)];
+        try { localStorage.setItem('pcg-preview-enquiries', JSON.stringify(list)); } catch (err) {}
+        this.setState({ enquiries: list });
+        this.onSuccess(true);
+      }
+    } catch (err) {
+      this.setState({ status: 'error', liveMsg: 'We couldn\u2019t send your request. Your details are still in the form.' });
+    }
+  }
+  onSuccess(preview) {
+    try { sessionStorage.removeItem('pcg-service'); } catch (e) {}
+    this.setState({ status: 'success', successPreview: preview, requestId: null, touched: {}, errors: {}, liveMsg: 'Your consultation request has been received.', form: { name: '', email: '', company: '', phone: '', service: '', challenge: '', contact: '', website: '' } }, () => {
+      const h = document.getElementById('success-h'); h && h.focus();
+    });
+  }
+  saveEnquiries(list) { try { localStorage.setItem('pcg-preview-enquiries', JSON.stringify(list)); } catch (e) {} this.setState({ enquiries: list }); }
+  updateSel(patch) { const list = this.state.enquiries.map(x => x.id === this.state.adminSel ? { ...x, ...patch, updatedAt: new Date().toISOString() } : x); this.saveEnquiries(list); }
+  closeMenu() { this.setState({ menuOpen: false }); }
+
+  renderVals() {
+    const st = this.state; const r = st.route; const page = r.page;
+    const isMobile = st.vw < 1100;
+    const tp = !!(this.props.templatePreview ?? false);
+    const showAddress = !!(this.props.showAddress ?? false);
+    const pages = ['home', 'services', 'industries', 'approach', 'team', 'insights', 'contact', 'privacy', 'admin'];
+    const known = pages.includes(page);
+    const pg = known ? page : 'home';
+    const isArticle = pg === 'insights' && !!r.sub;
+    const NAV = [['Home', 'home', '#/'], ['Services', 'services', '#/services'], ['Industries', 'industries', '#/industries'], ['Our Approach', 'approach', '#/approach'], ['Team', 'team', '#/team'], ['Insights', 'insights', '#/insights']];
+    const navItems = NAV.map(([label, id, href], i) => ({ label, href, num: '0' + (i + 1), current: pg === id ? 'page' : undefined, color: pg === id ? '#FFFFFF' : '#C3CBCF', line: pg === id ? '#C9B07F' : 'transparent' }));
+    const svcLink = id => ({ ...this.svc(id), href: '#/services/' + id, contactHref: '#/contact?service=' + id });
+
+    const heroSrc = [
+      { src: 'assets/hero-glass-office.png', alt: 'Glass-walled meeting room and private office looking out over trees', pos: '58% center' },
+      { src: 'assets/architecture-diptych.png', alt: 'A pale architectural column casting a long shadow across a courtyard', pos: '80% center' },
+      { src: 'assets/team-roundtable.png', alt: 'Colleagues in conversation around a round table in a daylit room', pos: '50% center' }
+    ];
+    const heroImages = heroSrc.map((h, i) => ({ ...h, opacity: i === st.heroIdx ? 1 : 0, hidden: i === st.heroIdx ? undefined : 'true', loading: i === 0 ? 'eager' : 'lazy' }));
+    const heroCanRotate = (this.props.heroRotate ?? true) && !st.reduced;
+    const HF = this.HERO_FOCUS; const hf = HF[st.heroIdx];
+    const ch = this.CHALLENGES[st.challenge]; const chSvc = this.svc(ch.svc);
+
+    const insights = tp ? this.SAMPLE_INSIGHTS.map(i => ({ ...i, href: '#/insights/' + i.slug, catUpper: i.cat.toUpperCase(), date: 'DATE ON PUBLISH' })) : [];
+    const cats = ['All', ...Array.from(new Set(insights.map(i => i.cat)))];
+    const q = st.insightQuery.trim().toLowerCase();
+    const filtered = insights.filter(i => (st.insightCat === 'All' || i.cat === st.insightCat) && (!q || (i.title + ' ' + i.excerpt).toLowerCase().includes(q)));
+    const shown = filtered.slice(0, st.insightCount);
+    const art = isArticle ? insights.find(i => i.slug === r.sub) : null;
+    const article = art ? { ...art, author: 'Author (verified, if available)', serviceTitle: this.svc(art.svc).title, serviceHref: '#/services/' + art.svc, contactHref: '#/contact?service=' + art.svc,
+      blocks: [{ isP: true, text: 'Sample body text. This paragraph demonstrates the reading measure, line height, and rhythm of a published article. Replace it with approved content from the CMS.' }, { isH: true, text: 'A second-level heading' }, { isP: true, text: 'Further sample text showing how sections break up longer articles. Headings follow a logical hierarchy so that the piece remains easy to scan and navigate with assistive technology.' }, { isP: true, text: 'Each article closes with a related service and a consultation link, shown alongside the body on wide screens and beneath it on smaller ones.' }] } : {};
+
+    const fieldVals = {};
+    ['name', 'email', 'company', 'phone', 'service', 'challenge', 'website'].forEach(k => {
+      const err = st.errors[k];
+      const help = k === 'service' ? 'f-service-help' : k === 'challenge' ? 'f-challenge-help' : '';
+      fieldVals[k] = { value: st.form[k], onChange: e => this.setField(k, e.target.value), onBlur: () => this.blurField(k), hasError: !!err, error: err, invalid: err ? 'true' : undefined,
+        describedBy: [help, err ? 'f-' + k + '-err' : ''].filter(Boolean).join(' ') || undefined, border: err ? '#B42318' : 'rgba(23,36,43,0.35)' };
+    });
+    const submitting = st.status === 'submitting';
+    const isContact = pg === 'contact';
+
+    const adminFiltered = st.enquiries.filter(x => (st.adminFilter === 'all' || x.status === st.adminFilter) && (!st.adminQuery || (x.fullName + x.company + x.email).toLowerCase().includes(st.adminQuery.toLowerCase())));
+    const statusLabel = { new: 'NEW', review: 'IN REVIEW', contacted: 'CONTACTED', closed: 'CLOSED' };
+    const svcTitle = id => id === 'other' ? 'Other / Not sure yet' : (this.svc(id) || {}).title || id;
+    const fmt = iso => { try { return new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); } catch (e) { return iso; } };
+    const selRec = st.enquiries.find(x => x.id === st.adminSel);
+    const crumbLabel = { services: 'Services', industries: 'Industries', approach: 'Our Approach', team: 'Team', insights: 'Insights', contact: 'Request a Consultation', privacy: 'Privacy Policy', admin: 'Admin' }[pg];
+    const crumbs = isArticle ? [{ label: 'Insights', href: '#/insights', isLink: true, isCurrent: false }, { label: art ? art.title : 'Article', isLink: false, isCurrent: true }] : [{ label: crumbLabel, isLink: false, isCurrent: true }];
+
+    return {
+      skipToMain: e => { e.preventDefault(); const m = document.getElementById('main'); m && m.focus(); },
+      showDesktopNav: !isMobile, showMenuButton: isMobile, headerCtaLabel: st.vw < 520 ? 'Consult' : 'Request a Consultation',
+      menuOpen: st.menuOpen, menuOpenStr: st.menuOpen ? 'true' : 'false',
+      openMenu: () => this.setState({ menuOpen: true }, () => { const c = document.getElementById('menu-close'); c && c.focus(); }),
+      closeMenu: () => this.closeMenu(),
+      headerPadY: st.scrolled ? '10px' : '16px', stickyTop: st.scrolled ? '65px' : '77px',
+      navItems, email: this.EMAIL, phone: this.PHONE, mailHref: 'mailto:' + this.EMAIL, telHref: 'tel:+12156822917', address: this.ADDRESS, showAddress, year: new Date().getFullYear(),
+      isHome: pg === 'home', isServices: pg === 'services', isIndustries: pg === 'industries', isApproach: pg === 'approach', isTeam: pg === 'team', isInsights: pg === 'insights' && !isArticle, isArticle, isContact, isPrivacy: pg === 'privacy', isAdmin: pg === 'admin',
+      isInterior: pg !== 'home', crumbs, showClosingCta: !['contact', 'admin', 'privacy'].includes(pg),
+      heroSpot: e => { const el = e.currentTarget; const b = el.getBoundingClientRect(); el.style.setProperty('--x', (e.clientX - b.left) + 'px'); el.style.setProperty('--y', (e.clientY - b.top) + 'px'); },
+      ticker: (() => { const items = ['Business Strategy', 'Operational Improvement', 'Process Consulting', 'Decision Support', 'Workflow Clarity', 'Practical Next Steps']; const row = [...items, ...items].map((t, i) => React.createElement('span', { key: i, style: { display: 'inline-flex', alignItems: 'center', gap: 28, paddingRight: 28, fontFamily: "'DM Sans',sans-serif", fontWeight: 500, fontSize: 'clamp(18px,1.8vw,24px)', letterSpacing: '-0.01em', whiteSpace: 'nowrap' } }, t, React.createElement('span', { style: { fontSize: 12 } }, '◆'))); return React.createElement('div', { style: { display: 'flex', width: 'max-content', padding: '18px 0', animation: st.reduced ? 'none' : 'pcg-marquee 48s linear infinite' } }, row); })(),
+      principlePanels: [{ num: '01', title: 'Understand the challenge.', text: 'Begin with the situation as it actually is, including the constraints that shape it.', icon: '○' }, { num: '02', title: 'Identify practical opportunities.', text: 'Separate what would help most from what is merely possible.', icon: '◇' }, { num: '03', title: 'Define a clear path forward.', text: 'Agree on priorities, ownership, and the next concrete steps.', icon: '→' }].map((p, i) => { const on = i === st.prinIdx; return { ...p, selected: on ? 'true' : 'false', flex: (on ? 2.2 : 1) + ' 1 260px', bg: on ? '#17242B' : '#FFFFFF', color: on ? '#F7F5EF' : '#17242B', sub: on ? '#C3CBCF' : '#53616A', ring: on ? '#C9B07F' : 'rgba(23,36,43,0.3)', textOpacity: on ? 1 : 0.55, onClick: () => { if (st.prinIdx !== i) this.setState({ prinIdx: i }); } }; }),
+      bentoCols: st.vw >= 900 ? 'minmax(0,1.15fr) minmax(0,1fr)' : 'minmax(0,1fr)', bentoSpan: st.vw >= 900 ? 'span 2' : 'auto',
+      homeSteps: this.STAGES.map((s, i) => ({ num: s.num, title: s.title, selected: i === st.homeStep ? 'true' : 'false', dotBg: i <= st.homeStep ? '#C9B07F' : '#17242B', dotColor: i <= st.homeStep ? '#17242B' : '#F7F5EF', dotBorder: i <= st.homeStep ? '#C9B07F' : 'rgba(247,245,239,0.4)', opacity: i === st.homeStep ? 1 : 0.6, onClick: () => this.setState({ homeStep: i }) })),
+      procScale: st.homeStep / 3, homeStage: this.STAGES[st.homeStep], stepTitleDisplay: st.vw < 640 ? 'none' : 'block',
+      heroCanRotate, heroCounter: `AREA 0${st.heroIdx + 1} / 03`,
+      heroTabs: HF.map((h, i) => ({ id: 'hero-tab-' + i, num: h.num, label: h.tab, selected: i === st.heroIdx ? 'true' : 'false', tabIndex: i === st.heroIdx ? 0 : -1, bg: i === st.heroIdx ? '#17242B' : '#FFFFFF', color: i === st.heroIdx ? '#F7F5EF' : '#17242B', border: i === st.heroIdx ? '#17242B' : 'rgba(23,36,43,0.2)', stem: i === st.heroIdx ? '#A88D5D' : 'transparent', onClick: () => this.setState({ heroIdx: i, heroPaused: true }) })),
+      heroTabKey: e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (st.heroIdx + (e.key === 'ArrowRight' ? 1 : 2)) % 3; this.setState({ heroIdx: n, heroPaused: true }, () => { const b = document.getElementById('hero-tab-' + n); b && b.focus(); }); },
+      heroFocus: { tabId: 'hero-tab-' + st.heroIdx, questions: hf.questions.map((t, i) => ({ num: '0' + (i + 1), text: t })), service: this.svc(hf.svc).title, href: '#/services/' + hf.svc, contactHref: '#/contact?service=' + hf.svc },
+      matrixItems: this.MATRIX.map(m => ({ id: m.id, x: m.x + '%', y: m.y + '%', aria: 'Initiative ' + m.id, pressed: st.matrixSel === m.id ? 'true' : 'false', bg: st.matrixSel === m.id ? '#17242B' : '#FFFFFF', color: st.matrixSel === m.id ? '#F7F5EF' : '#17242B', onClick: () => this.setState({ matrixSel: m.id }) })),
+      matrixSel: this.MATRIX.find(m => m.id === st.matrixSel),
+      opsSel: { ...this.OPS[st.opsSel], labelUpper: this.OPS[st.opsSel].label.toUpperCase() },
+      apNodes: this.STAGES.map((s, i) => ({ num: s.num, aria: 'Stage ' + s.num + ': ' + s.title, pressed: i === st.apStage ? 'true' : 'false', bg: i === st.apStage ? '#17242B' : '#F7F5EF', color: i === st.apStage ? '#F7F5EF' : '#17242B', line: i < st.apStage ? '#17242B' : '#A88D5D', flex: i === 3 ? 'none' : '1', lineDisplay: i === 3 ? 'none' : 'block', onClick: () => this.setState({ apStage: i }) })),
+      apStage: this.STAGES[st.apStage],
+      indAreas: this.IND_AREAS.map((a, i) => ({ label: a.label, selected: i === st.indArea ? 'true' : 'false', bg: i === st.indArea ? '#17242B' : 'transparent', color: i === st.indArea ? '#FFFFFF' : '#17242B', onClick: () => this.setState({ indArea: i }) })),
+      indQuestions: this.IND_AREAS[st.indArea].qs.map((t, i) => ({ num: '0' + (i + 1), text: t })),
+      heroDots: heroSrc.map((h, i) => ({ label: `Show image ${i + 1} of 3`, pressed: i === st.heroIdx ? 'true' : 'false', bg: i === st.heroIdx ? '#17242B' : 'rgba(23,36,43,0.25)', onClick: () => this.setState({ heroIdx: i, heroPaused: true }) })),
+      toggleHero: () => this.setState(s => ({ heroPaused: !s.heroPaused })), heroToggleText: st.heroPaused ? 'PLAY' : 'PAUSE', heroToggleLabel: st.heroPaused ? 'Resume automatic cycling' : 'Pause automatic cycling',
+      heroEnter: () => this.setState({ heroHover: true }), heroLeave: () => this.setState({ heroHover: false }),
+      principlesHome: [{ num: '01', title: 'Understand the challenge.', text: 'Begin with the situation as it actually is, including the constraints that shape it.' }, { num: '02', title: 'Identify practical opportunities.', text: 'Separate what would help most from what is merely possible.' }, { num: '03', title: 'Define a clear path forward.', text: 'Agree on priorities, ownership, and the next concrete steps.' }],
+      svcStrategy: svcLink('strategy'), svcOps: svcLink('operations'), svcProcess: svcLink('process'),
+      services: this.published().map(s => svcLink(s.id)),
+      challenges: this.CHALLENGES.map((c, i) => ({ ...c, num: '0' + (i + 1), pressed: i === st.challenge ? 'true' : 'false', bg: i === st.challenge ? '#17242B' : 'transparent', color: i === st.challenge ? '#F7F5EF' : '#17242B', border: i === st.challenge ? '#17242B' : 'rgba(23,36,43,0.18)', numColor: i === st.challenge ? '#C9B07F' : '#6E5A36', mark: i === st.challenge ? '→' : '', onClick: () => this.setState({ challenge: i }) })),
+      activeChallenge: { ...ch, num: '0' + (st.challenge + 1), serviceTitle: chSvc.title, serviceHref: '#/services/' + chSvc.id, contactHref: '#/contact?service=' + chSvc.id },
+      audiences: [{ num: '01', title: 'Business owners & founders', note: 'Weighing direction, structure, or the next stage.' }, { num: '02', title: 'Executive & leadership teams', note: 'Aligning on priorities and decisions.' }, { num: '03', title: 'Operations leaders', note: 'Looking at how work moves and where it stalls.' }, { num: '04', title: 'Organizations reviewing processes', note: 'Seeking clarity and consistency in how work is done.' }],
+      stages: this.STAGES,
+      hasInsights: insights.length > 0, noInsights: insights.length === 0, insightsPreview: insights.slice(0, 3),
+      insightCats: cats.map(c => ({ label: c, pressed: st.insightCat === c ? 'true' : 'false', bg: st.insightCat === c ? '#17242B' : 'transparent', color: st.insightCat === c ? '#FFFFFF' : '#17242B', onClick: () => this.setState({ insightCat: c }) })),
+      insightQuery: st.insightQuery, onInsightQuery: e => this.setState({ insightQuery: e.target.value }),
+      hasFeatured: shown.length > 0, featured: shown[0] || {}, insightRest: shown.slice(1), noFilteredInsights: insights.length > 0 && filtered.length === 0,
+      clearInsightFilters: () => this.setState({ insightCat: 'All', insightQuery: '' }), canLoadMore: filtered.length > st.insightCount, loadMore: () => this.setState(s => ({ insightCount: s.insightCount + 6 })),
+      articleFound: !!art, articleMissing: isArticle && !art, article,
+      serviceTabs: this.published().map(s => ({ num: s.num, title: s.title, summary: s.purpose, line: r.sub === s.id ? '#17242B' : 'transparent', current: r.sub === s.id ? 'true' : undefined, onClick: () => { history.replaceState(null, '', '#/services/' + s.id); this.setState({ route: { ...r, sub: s.id } }); this.scrollToId('svc-' + s.id); } })),
+      opsNodes: this.OPS.map((n, i) => ({ ...n, pressed: i === st.opsSel ? 'true' : 'false', borderStyle: i === st.opsSel ? 'dashed' : 'solid', borderColor: i === st.opsSel ? '#A88D5D' : 'rgba(23,36,43,0.4)', bg: i === st.opsSel ? '#FFFFFF' : 'transparent', connector: i === this.OPS.length - 1 ? 0 : 1, onClick: () => this.setState({ opsSel: i }) })),
+      procBefore: [{ label: 'Request received', note: '', indent: '0px' }, { label: 'Informal check', note: '← owner?', indent: '40px' }, { label: 'Approval', note: '', indent: '12px' }, { label: 'Rework', note: '↺ loop', indent: '64px' }, { label: 'Second approval', note: 'handoff unclear', indent: '24px' }],
+      procAfter: [{ num: '1', label: 'Request received', owner: 'TEAM A' }, { num: '2', label: 'Defined review', owner: 'TEAM A' }, { num: '3', label: 'Single approval', owner: 'LEAD' }, { num: '4', label: 'Delivery', owner: 'TEAM B' }],
+      templatePreview: tp,
+      industries: tp ? [{ name: 'Industry name (sample)', desc: 'Brief description of common business challenges in this sector, approved by the business.', serviceTitle: 'Operational Improvement', serviceHref: '#/services/operations' }, { name: 'Industry name (sample)', desc: 'A second verified entry, shown here only to preview the directory layout.', serviceTitle: 'Process Consulting', serviceHref: '#/services/process' }] : [],
+      hasIndustries: tp, noIndustries: !tp,
+      crossChallenges: [{ num: '01', title: 'Process complexity', text: 'Processes that have become harder to follow, maintain, or explain as the business has grown.', serviceTitle: 'Process Consulting', href: '#/services/process' }, { num: '02', title: 'Operational coordination', text: 'Teams that depend on each other but lack a shared view of how work should flow between them.', serviceTitle: 'Operational Improvement', href: '#/services/operations' }, { num: '03', title: 'Strategic prioritization', text: 'More worthwhile options than the organization can pursue at once, and no agreed basis for choosing.', serviceTitle: 'Business Strategy', href: '#/services/strategy' }],
+      principlesApproach: [{ title: 'Understand before recommending.', text: 'Recommendations are only as useful as the understanding behind them.', markW: '20px', markH: '20px', markR: '50%' }, { title: 'Focus on the actual business challenge.', text: 'Keep attention on the problem you need solved, not on a predefined method.', markW: '22px', markH: '10px', markR: '0' }, { title: 'Make priorities and assumptions explicit.', text: 'State what matters most, and what is being assumed, so both can be examined.', markW: '14px', markH: '22px', markR: '0' }, { title: 'Define practical next steps.', text: 'Conclude with actions that are specific, owned, and achievable.', markW: '20px', markH: '20px', markR: '0' }].map((p, i) => ({ ...p, bg: i % 3 === 0 ? '#F7F5EF' : '#FFFFFF' })),
+      expectations: ['Clear communication throughout.', 'Defined objectives for the work.', 'Transparent discussion of scope.', 'Agreed next steps at each stage.', 'Appropriate handling of business information.'],
+      faqs: this.FAQS.map((f, i) => ({ ...f, btnId: 'faq-b-' + i, panelId: 'faq-p-' + i, expanded: st.faq === i ? 'true' : 'false', hidden: st.faq === i ? undefined : true, rot: st.faq === i ? '45deg' : '0deg', onClick: () => this.setState(s => ({ faq: s.faq === i ? -1 : i })) })),
+      team: tp ? [{ name: 'Verified name', role: 'CONFIRMED ROLE', bio: 'Approved professional biography appears here. Only information supplied and confirmed by the business is published.', credentials: 'Verified qualifications, if supplied.' }] : [], hasTeam: tp, noTeam: !tp,
+      nextSteps: [{ num: '01', text: 'Share some context about your business and the challenge.' }, { num: '02', text: 'We review your enquiry and reply using your preferred method.' }, { num: '03', text: 'Where relevant, we arrange an initial conversation.' }],
+      f: fieldVals, serviceOptions: this.serviceOptions(),
+      contactMethods: [['email', 'Email'], ['phone', 'Phone']].map(([v, l]) => ({ value: v, label: l, checked: st.form.contact === v, border: st.form.contact === v ? '#17242B' : 'rgba(23,36,43,0.3)', bg: st.form.contact === v ? '#F7F5EF' : '#FFFFFF', onChange: () => this.setField('contact', v) })),
+      challengeCount: `${st.form.challenge.length} / 4000`,
+      submit: e => this.submit(e), submitting, submittingStr: submitting ? 'true' : 'false', submitLabel: submitting ? 'Sending\u2026' : (st.status === 'error' ? 'Try Again' : 'Send Consultation Request'), submitBg: submitting ? '#53616A' : '#17242B',
+      isSuccess: st.status === 'success', showForm: st.status !== 'success', isError: st.status === 'error', successWasPreview: st.successPreview,
+      hasErrorSummary: !!st.errorSummary && Object.keys(st.errors).length > 0, errorSummary: st.errorSummary, liveMsg: st.liveMsg,
+      newEnquiry: () => this.setState({ status: 'idle', liveMsg: '' }),
+      adminLocked: !st.admin, adminOpen: st.admin,
+      adminSignIn: () => { try { sessionStorage.setItem('pcg-admin-preview', '1'); } catch (e) {} this.setState({ admin: true }); },
+      adminSignOut: () => { try { sessionStorage.removeItem('pcg-admin-preview'); } catch (e) {} this.setState({ admin: false, adminSel: null }); },
+      adminQuery: st.adminQuery, onAdminQuery: e => this.setState({ adminQuery: e.target.value }),
+      adminFilters: [['all', 'All'], ['new', 'New'], ['review', 'In Review'], ['contacted', 'Contacted'], ['closed', 'Closed']].map(([v, l]) => ({ label: l, count: v === 'all' ? st.enquiries.length : st.enquiries.filter(x => x.status === v).length, pressed: st.adminFilter === v ? 'true' : 'false', bg: st.adminFilter === v ? '#17242B' : 'transparent', color: st.adminFilter === v ? '#FFFFFF' : '#17242B', onClick: () => this.setState({ adminFilter: v }) })),
+      adminEmpty: adminFiltered.length === 0,
+      adminRows: adminFiltered.map(x => ({ name: x.fullName, company: x.company, service: svcTitle(x.serviceInterest), when: fmt(x.createdAt), status: statusLabel[x.status], pressed: st.adminSel === x.id ? 'true' : 'false', bg: st.adminSel === x.id ? '#F7F5EF' : '#FFFFFF', onClick: () => this.setState({ adminSel: x.id }) })),
+      hasAdminSel: !!selRec, noAdminSel: !selRec,
+      sel: selRec ? { name: selRec.fullName, company: selRec.company, email: selRec.email, mailHref: 'mailto:' + selRec.email, phone: selRec.phone || '—', service: svcTitle(selRec.serviceInterest), contact: selRec.preferredContact || 'No preference', when: fmt(selRec.createdAt), updated: fmt(selRec.updatedAt), challenge: selRec.challenge, statusVal: selRec.status, notes: selRec.notes } : {},
+      onSelStatus: e => this.updateSel({ status: e.target.value }), onSelNotes: e => this.updateSel({ notes: e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>
